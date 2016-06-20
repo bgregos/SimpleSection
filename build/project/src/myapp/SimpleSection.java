@@ -1,36 +1,36 @@
 package myapp;
 
+import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
- 
+import javafx.stage.WindowEvent;
+
 public class SimpleSection extends Application {
-    
+
     @Override
-    public void start(Stage primaryStage) {
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
- 
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
-            }
-        });
-        
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Overview.fxml")); //load gui config
+        Scene scene = new Scene(root);
 
- Scene scene = new Scene(root, 300, 250);
-
-        primaryStage.setTitle("Hello World!");
+        //display the gui
         primaryStage.setScene(scene);
+        primaryStage.setTitle("SimpleSection");
         primaryStage.show();
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() { //kill program on exit clicked
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+});
     }
+
+
  public static void main(String[] args) {
         launch(args);
     }
