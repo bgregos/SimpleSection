@@ -23,12 +23,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 public class OverviewController implements Initializable{
 
-
+    //Section List Tab
 	@FXML private Button getSectionsButton;
 	@FXML private ChoiceBox<String> department;
 	@FXML private TextField number;
@@ -37,6 +38,7 @@ public class OverviewController implements Initializable{
 	@FXML private Button LogInButton;
 	@FXML private TextField PID;
 	@FXML private PasswordField Password;
+	@FXML private Button addToClasses;
 	@FXML private TableView<Section> table;
 	@FXML private TableColumn<Section, String> CRN;
 	@FXML private TableColumn<Section, String> CourseNumber;
@@ -50,6 +52,28 @@ public class OverviewController implements Initializable{
 	@FXML private TableColumn<Section, String> Start;
 	@FXML private TableColumn<Section, String> End;
 	@FXML private TableColumn<Section, String> Location;
+	//My Classes Tab
+	@FXML private Button removeSelected;
+	@FXML private Button updateFreeSpace;
+	@FXML private TextArea myClassesComments;
+	@FXML private TableView<Section> myClasses;
+	@FXML private TableColumn<Section, String> CRN1;
+	@FXML private TableColumn<Section, String> CourseNumber1;
+	@FXML private TableColumn<Section, String> Title1;
+	@FXML private TableColumn<Section, String> Type1;
+	@FXML private TableColumn<Section, String> CreditHours1;
+	@FXML private TableColumn<Section, String> Capacity1;
+	@FXML private TableColumn<Section, String> Available1;
+	@FXML private TableColumn<Section, String> Instructor1;
+	@FXML private TableColumn<Section, String> Days1;
+	@FXML private TableColumn<Section, String> Start1;
+	@FXML private TableColumn<Section, String> End1;
+	@FXML private TableColumn<Section, String> Location1;
+
+	//Schedule Tab
+	@FXML private TreeView<Section> schedule; //TODO implement MTWRF and time sort
+	//About Tab
+
 
 	private boolean loggedIn=false;
 	private ObservableList<Section> data;
@@ -215,6 +239,10 @@ public class OverviewController implements Initializable{
 		Start.setCellValueFactory(new PropertyValueFactory<Section, String>("begin"));
 		End.setCellValueFactory(new PropertyValueFactory<Section, String>("end"));
 		Location.setCellValueFactory(new PropertyValueFactory<Section, String>("location"));
+	}
+
+	public void handleAddToClasses(){
+
 	}
 
 }

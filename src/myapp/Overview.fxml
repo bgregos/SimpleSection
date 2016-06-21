@@ -12,6 +12,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
@@ -27,21 +28,26 @@
                           <items>
                               <AnchorPane prefHeight="565.0" prefWidth="181.0" SplitPane.resizableWithParent="false">
                                  <children>
-                                    <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <Pane layoutX="-1.0" prefHeight="565.0" prefWidth="182.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
                                           <TextField fx:id="number" layoutX="69.0" layoutY="38.0" onAction="#handleGetSections" prefHeight="26.0" prefWidth="107.0" promptText="EX: 1226" />
                                           <ChoiceBox fx:id="department" layoutX="5.0" layoutY="13.0" prefHeight="26.0" prefWidth="171.0" />
                                           <Button fx:id="getSectionsButton" layoutX="5.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" text="Get Sections" />
                                           <Label fx:id="loading" focusTraversable="false" layoutX="111.0" layoutY="69.0" text="Loading..." />
                                           <Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
-                                          <Label focusTraversable="false" layoutX="5.0" layoutY="505.0" prefHeight="20.0" prefWidth="171.0" text="Enable class availability">
+                                          <Label focusTraversable="false" layoutX="5.0" layoutY="168.0" prefHeight="20.0" prefWidth="171.0" text="Enable class availability">
                                              <padding>
                                                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                              </padding>
                                           </Label>
-                                          <TextField fx:id="PID" layoutX="5.0" layoutY="453.0" onAction="#handleLogIn" promptText="PID" />
-                                          <PasswordField fx:id="Password" layoutX="5.0" layoutY="479.0" onAction="#handleLogIn" promptText="Password" />
-                                          <Button fx:id="LogInButton" layoutX="8.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
+                                          <TextField fx:id="PID" layoutX="5.0" layoutY="116.0" onAction="#handleLogIn" promptText="PID" visible="false" />
+                                          <PasswordField fx:id="Password" layoutX="5.0" layoutY="142.0" onAction="#handleLogIn" promptText="Password" visible="false" />
+                                          <Button fx:id="LogInButton" layoutX="5.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
+                                          <Button fx:id="addToClasses" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" text="Add to My Classes">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                          </Button>
                                        </children>
                                     </Pane>
                                  </children>
@@ -87,9 +93,51 @@
           </Tab>
           <Tab text="My Classes">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.88" orientation="VERTICAL" prefHeight="567.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <TableView fx:id="myClasses" focusTraversable="false" onMouseClicked="#handleTableClick" prefHeight="506.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                       <columns>
+                                          <TableColumn fx:id="CRN1" editable="false" prefWidth="58.0" text="CRN" />
+                                          <TableColumn fx:id="CourseNumber1" editable="false" prefWidth="96.0" text="Course" />
+                                          <TableColumn fx:id="Title1" editable="false" prefWidth="179.0" sortable="false" text="Title" />
+                                          <TableColumn fx:id="Type1" editable="false" prefWidth="43.0" text="Type" />
+                                          <TableColumn fx:id="CreditHours1" editable="false" prefWidth="22.0" text="Cr" />
+                                          <TableColumn fx:id="Capacity1" editable="false" prefWidth="45.0" text="Size" />
+                                          <TableColumn fx:id="Available1" editable="false" prefWidth="67.0" text="Free" />
+                                          <TableColumn fx:id="Instructor1" editable="false" prefWidth="112.0" text="Instructor" />
+                                          <TableColumn fx:id="Days1" editable="false" minWidth="0.0" text="Days" />
+                                          <TableColumn fx:id="Start1" editable="false" prefWidth="70.0" text="Start" />
+                                          <TableColumn fx:id="End1" editable="false" prefWidth="81.0" text="End" />
+                                          <TableColumn fx:id="Location1" editable="false" prefWidth="100.0" text="Location" />
+                                       </columns>
+                                    </TableView>
+                                    <Button fx:id="removeSelected" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Remove Selected" />
+                                    <Button fx:id="updateFreeSpace" layoutX="151.0" layoutY="14.0" mnemonicParsing="false" text="Update Free Space" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TextArea fx:id="myClassesComments" editable="false" focusTraversable="false" prefHeight="60.0" prefWidth="954.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="Schedule">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TreeView fx:id="schedule" layoutX="14.0" prefHeight="563.0" prefWidth="1128.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
           <Tab text="About">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="SimpleSection.jnlp">
+  <information>
+    <title>SimpleSection</title>
+    <vendor>bgregos</vendor>
+    <description>SimpleSection</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="SimpleSection.jar" size="13076" download="eager" />
+    <jar href="libs/commons-codec-1.9.jar" size="263965" download="eager" />
+    <jar href="libs/commons-exec-1.3.jar" size="54423" download="eager" />
+    <jar href="libs/commons-io-2.4.jar" size="185140" download="eager" />
+    <jar href="libs/commons-lang-2.6.jar" size="284220" download="eager" />
+    <jar href="libs/commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="libs/fast-classpath-scanner-1.9.19.jar" size="80357" download="eager" />
+    <jar href="libs/fast-classpath-scanner-1.9.20.jar" size="81210" download="eager" />
+    <jar href="libs/gson-2.7.jar" size="231952" download="eager" />
+    <jar href="libs/guava-19.0.jar" size="2308517" download="eager" />
+    <jar href="libs/httpclient-4.5.2.jar" size="736658" download="eager" />
+    <jar href="libs/httpclient-cache-4.5.2.jar" size="158984" download="eager" />
+    <jar href="libs/httpcore-4.4.4.jar" size="326724" download="eager" />
+    <jar href="libs/jbrowserdriver-0.14.5.jar" size="572307" download="eager" />
+    <jar href="libs/jbrowserdriver-0.14.6.jar" size="572351" download="eager" />
+    <jar href="libs/jna-3.0.9.jar" size="795871" download="eager" />
+    <jar href="libs/jna-4.1.0.jar" size="914597" download="eager" />
+    <jar href="libs/jna-platform-4.1.0.jar" size="1464423" download="eager" />
+    <jar href="libs/netty-3.5.7.Final.jar" size="1106629" download="eager" />
+    <jar href="libs/selenium-api-2.53.0.jar" size="145748" download="eager" />
+    <jar href="libs/selenium-chrome-driver-2.53.0.jar" size="10993" download="eager" />
+    <jar href="libs/selenium-edge-driver-2.53.0.jar" size="6370" download="eager" />
+    <jar href="libs/selenium-firefox-driver-2.53.0.jar" size="821994" download="eager" />
+    <jar href="libs/selenium-ie-driver-2.53.0.jar" size="11537" download="eager" />
+    <jar href="libs/selenium-java-2.53.0.jar" size="2109" download="eager" />
+    <jar href="libs/selenium-leg-rc-2.53.0.jar" size="400399" download="eager" />
+    <jar href="libs/selenium-remote-driver-2.53.0.jar" size="234531" download="eager" />
+    <jar href="libs/selenium-safari-driver-2.53.0.jar" size="86048" download="eager" />
+    <jar href="libs/selenium-server-2.53.0.jar" size="1671708" download="eager" />
+    <jar href="libs/selenium-support-2.53.0.jar" size="168576" download="eager" />
+    <jar href="libs/slf4j-api-1.7.2.jar" size="26083" download="eager" />
+    <jar href="libs/slf4j-nop-1.7.21.jar" size="4007" download="eager" />
+    <jar href="libs/zt-exec-1.9.jar" size="51957" download="eager" />
+    <jar href="libs/zt-process-1.3.jar" size="28741" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="myapp.SimpleSection"  name="SimpleSection" />
+  <update check="background"/>
+</jnlp>
