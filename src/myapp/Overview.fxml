@@ -55,10 +55,8 @@
                                                 <TableView fx:id="table" focusTraversable="false" onMouseClicked="#handleTableClick" onSort="#handleSort" prefHeight="506.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                   <columns>
                                                       <TableColumn fx:id="CRN" editable="false" prefWidth="58.0" text="CRN" />
-                                                    <TableColumn fx:id="CourseNumber" editable="false" prefWidth="96.0" text="Course">
-  					  </TableColumn>
-                                                    <TableColumn fx:id="Title" editable="false" prefWidth="179.0" sortable="false" text="Title">
-   					  </TableColumn>
+                                                      <TableColumn fx:id="CourseNumber" editable="false" prefWidth="96.0" text="Course" />
+                                                      <TableColumn fx:id="Title" editable="false" prefWidth="179.0" sortable="false" text="Title" />
                                                       <TableColumn fx:id="Type" editable="false" prefWidth="43.0" text="Type" />
                                                       <TableColumn fx:id="CreditHours" editable="false" prefWidth="22.0" text="Cr" />
                                                       <TableColumn fx:id="Capacity" editable="false" prefWidth="45.0" text="Size" />
