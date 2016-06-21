@@ -13,86 +13,94 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1150.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.OverviewController">
    <children>
-      <SplitPane dividerPositions="0.186" focusTraversable="false" prefHeight="600.0" prefWidth="1150.0" scaleShape="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" scaleShape="false" SplitPane.resizableWithParent="false">
-               <children>
-                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <tabs>
-                      <Tab fx:id="sections" onSelectionChanged="#handleSections" text="Sections">
-                           <content>
-                            <AnchorPane minHeight="200.0" minWidth="191.0" prefHeight="598.0" prefWidth="205.0">
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab text="Section Listings">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.16114982578397213" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                              <AnchorPane prefHeight="565.0" prefWidth="181.0" SplitPane.resizableWithParent="false">
                                  <children>
-                                    <TextField fx:id="number" layoutX="12.0" layoutY="72.0" onAction="#handleGetSections" promptText="EX: 1226" />
-                                    <ChoiceBox fx:id="department" layoutX="12.0" layoutY="30.0" prefHeight="26.0" prefWidth="171.0" />
-                                    <Button fx:id="getSectionsButton" layoutX="12.0" layoutY="98.0" mnemonicParsing="false" onAction="#handleGetSections" text="Get Sections" />
-                                    <Label fx:id="loading" focusTraversable="false" layoutX="116.0" layoutY="103.0" text="Loading..." />
-                                    <Label focusTraversable="false" layoutX="14.0" layoutY="56.0" text="Number" />
-                                    <Label focusTraversable="false" layoutX="14.0" layoutY="14.0" text="Department" />
-                                    <Label focusTraversable="false" layoutX="12.0" layoutY="505.0" prefWidth="248.0" text="Enable class availability">
-                                       <padding>
-                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                                       </padding>
-                                    </Label>
-                                    <TextField fx:id="PID" layoutX="12.0" layoutY="453.0" onAction="#handleLogIn" promptText="PID" visible="false" />
-                                    <PasswordField fx:id="Password" layoutX="12.0" layoutY="479.0" onAction="#handleLogIn" promptText="Password" visible="false" />
-                                    <Button fx:id="LogInButton" layoutX="12.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
+                                    <Pane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TextField fx:id="number" layoutX="69.0" layoutY="38.0" onAction="#handleGetSections" prefHeight="26.0" prefWidth="107.0" promptText="EX: 1226" />
+                                          <ChoiceBox fx:id="department" layoutX="5.0" layoutY="13.0" prefHeight="26.0" prefWidth="171.0" />
+                                          <Button fx:id="getSectionsButton" layoutX="5.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" text="Get Sections" />
+                                          <Label fx:id="loading" focusTraversable="false" layoutX="111.0" layoutY="69.0" text="Loading..." />
+                                          <Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
+                                          <Label focusTraversable="false" layoutX="5.0" layoutY="505.0" prefHeight="20.0" prefWidth="171.0" text="Enable class availability">
+                                             <padding>
+                                                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="PID" layoutX="5.0" layoutY="453.0" onAction="#handleLogIn" promptText="PID" />
+                                          <PasswordField fx:id="Password" layoutX="5.0" layoutY="479.0" onAction="#handleLogIn" promptText="Password" />
+                                          <Button fx:id="LogInButton" layoutX="8.0" layoutY="525.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
+                                       </children>
+                                    </Pane>
                                  </children>
-                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </padding>
                               </AnchorPane>
-                           </content>
-                      </Tab>
-                      <Tab fx:id="myList" onSelectionChanged="#handleMyList" text="My List">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                      <Tab fx:id="about" onSelectionChanged="#handleAbout" text="About">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                    </tabs>
-                  </TabPane>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="900.0">
-               <children>
-                  <AnchorPane fx:id="rightSections" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <TableView fx:id="table" focusTraversable="false" onMouseClicked="#handleTableClick" onSort="#handleSort" prefHeight="598.0" prefWidth="903.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columns>
-                              <TableColumn fx:id="CRN" editable="false" prefWidth="58.0" text="CRN" />
-                            <TableColumn fx:id="CourseNumber" editable="false" prefWidth="90.0" text="Course">
+                            <AnchorPane prefHeight="565.0" prefWidth="841.0">
+                                 <children>
+                                    <SplitPane dividerPositions="0.88" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="952.0">
+                                             <children>
+                                                <TableView fx:id="table" focusTraversable="false" onMouseClicked="#handleTableClick" onSort="#handleSort" prefHeight="506.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                  <columns>
+                                                      <TableColumn fx:id="CRN" editable="false" prefWidth="58.0" text="CRN" />
+                                                    <TableColumn fx:id="CourseNumber" editable="false" prefWidth="96.0" text="Course">
   					  </TableColumn>
-                            <TableColumn fx:id="Title" editable="false" prefWidth="138.0" sortable="false" text="Title">
+                                                    <TableColumn fx:id="Title" editable="false" prefWidth="179.0" sortable="false" text="Title">
    					  </TableColumn>
-                              <TableColumn fx:id="Type" editable="false" prefWidth="42.0" text="Type" />
-                              <TableColumn fx:id="CreditHours" editable="false" prefWidth="22.0" text="Cr" />
-                              <TableColumn fx:id="Capacity" editable="false" prefWidth="71.0" text="Capacity" />
-                              <TableColumn fx:id="Available" editable="false" prefWidth="74.0" text="Available" />
-                              <TableColumn fx:id="Instructor" editable="false" prefWidth="104.0" text="Instructor" />
-                              <TableColumn fx:id="Days" editable="false" minWidth="0.0" prefWidth="81.0" text="Days" />
-                              <TableColumn fx:id="Start" editable="false" prefWidth="66.0" text="Start" />
-                              <TableColumn fx:id="End" editable="false" prefWidth="72.0" text="End" />
-                              <TableColumn fx:id="Location" editable="false" prefWidth="109.0" text="Location" />
-                          </columns>
-                        </TableView>
-                        <TextArea fx:id="textarea" editable="false" focusTraversable="false" prefHeight="59.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                      <TableColumn fx:id="Type" editable="false" prefWidth="43.0" text="Type" />
+                                                      <TableColumn fx:id="CreditHours" editable="false" prefWidth="22.0" text="Cr" />
+                                                      <TableColumn fx:id="Capacity" editable="false" prefWidth="45.0" text="Size" />
+                                                      <TableColumn fx:id="Available" editable="false" prefWidth="67.0" text="Free" />
+                                                      <TableColumn fx:id="Instructor" editable="false" prefWidth="112.0" text="Instructor" />
+                                                      <TableColumn fx:id="Days" editable="false" minWidth="0.0" text="Days" />
+                                                      <TableColumn fx:id="Start" editable="false" prefWidth="70.0" text="Start" />
+                                                      <TableColumn fx:id="End" editable="false" prefWidth="81.0" text="End" />
+                                                      <TableColumn fx:id="Location" editable="false" prefWidth="100.0" text="Location" />
+                                                  </columns>
+                                                </TableView>
+                                             </children>
+                                          </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                             <children>
+                                                <TextArea fx:id="textarea" editable="false" focusTraversable="false" prefHeight="60.0" prefWidth="954.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                      </items>
+                                    </SplitPane>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="rightAbout" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               </content>
+          </Tab>
+          <Tab text="My Classes">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+          <Tab text="About">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TextArea editable="false" layoutX="14.0" layoutY="14.0" prefHeight="558.0" prefWidth="862.0" text="Copyright 2016 Brendan Gregos (bgregos). All rights reserved." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-               </children></AnchorPane>
-        </items>
-      </SplitPane>
+                        <TextArea editable="false" prefHeight="558.0" prefWidth="862.0" text="Copyright 2016 Brendan Gregos (bgregos). All rights reserved." AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

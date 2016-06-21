@@ -50,13 +50,6 @@ public class OverviewController implements Initializable{
 	@FXML private TableColumn<Section, String> Start;
 	@FXML private TableColumn<Section, String> End;
 	@FXML private TableColumn<Section, String> Location;
-	@FXML private AnchorPane rightSections;
-	@FXML private AnchorPane leftSections;
-	@FXML private AnchorPane rightAbout;
-	@FXML private Tab about;
-	@FXML private Tab sections;
-	@FXML private Tab myList;
-
 
 	private boolean loggedIn=false;
 	private ObservableList<Section> data;
@@ -224,22 +217,4 @@ public class OverviewController implements Initializable{
 		Location.setCellValueFactory(new PropertyValueFactory<Section, String>("location"));
 	}
 
-	public void handleAbout(){
-		rightSections.setVisible(false);
-		rightAbout.setVisible(true);
-	}
-
-	public void handleSections(){
-		//The try/catch is needed because this method is run by JavaFX before the FXML file is fully parsed, resulting in a pointless NPE at start.
-		try{
-			rightSections.setVisible(true);
-			rightAbout.setVisible(false);
-		}
-		catch(NullPointerException e){}
-	}
-
-	public void handleMyList(){
-		rightAbout.setVisible(false);
-		rightSections.setVisible(false);
-	}
 }
