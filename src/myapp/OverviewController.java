@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
@@ -31,7 +31,7 @@ public class OverviewController implements Initializable {
 	@FXML
 	private Button getSectionsButton;
 	@FXML
-	private ChoiceBox<String> department;
+	private ComboBox<String> department;
 	@FXML
 	private TextField number;
 	@FXML
@@ -148,8 +148,8 @@ public class OverviewController implements Initializable {
 			departmentOptions.add(e.getText());
 		}
 		ObservableList<String> list = FXCollections.observableArrayList(departmentOptions);
+		//department.setItems(list);
 		department.setItems(list);
-
 	}
 
 	public void handleGetSections() {
