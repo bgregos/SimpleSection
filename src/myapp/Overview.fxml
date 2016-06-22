@@ -24,7 +24,7 @@
                <content>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <SplitPane dividerPositions="0.16114982578397213" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <SplitPane dividerPositions="0.16202090592334495" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
                               <AnchorPane prefHeight="565.0" prefWidth="181.0" SplitPane.resizableWithParent="false">
                                  <children>
@@ -43,7 +43,7 @@
                                           <TextField fx:id="PID" layoutX="5.0" layoutY="116.0" onAction="#handleLogIn" promptText="PID" visible="false" />
                                           <PasswordField fx:id="Password" layoutX="5.0" layoutY="142.0" onAction="#handleLogIn" promptText="Password" visible="false" />
                                           <Button fx:id="LogInButton" layoutX="5.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
-                                          <Button fx:id="addToClasses" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" text="Add to My Classes">
+                                          <Button fx:id="addToClasses" layoutX="5.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleAddToClasses" text="Add to My Classes">
                                              <opaqueInsets>
                                                 <Insets />
                                              </opaqueInsets>
@@ -54,7 +54,7 @@
                               </AnchorPane>
                             <AnchorPane prefHeight="565.0" prefWidth="841.0">
                                  <children>
-                                    <SplitPane dividerPositions="0.88" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <SplitPane dividerPositions="0.7708703374777975" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="436.0" prefWidth="952.0">
                                              <children>
@@ -99,7 +99,7 @@
                            <items>
                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="344.0" prefWidth="592.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <TableView fx:id="myClasses" focusTraversable="false" onMouseClicked="#handleTableClick" prefHeight="506.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                    <TableView fx:id="myClasses" focusTraversable="false" onMouseClicked="#handleMyClassesClick" prefHeight="506.0" prefWidth="954.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                                        <columns>
                                           <TableColumn fx:id="CRN1" editable="false" prefWidth="58.0" text="CRN" />
                                           <TableColumn fx:id="CourseNumber1" editable="false" prefWidth="96.0" text="Course" />
@@ -115,7 +115,7 @@
                                           <TableColumn fx:id="Location1" editable="false" prefWidth="100.0" text="Location" />
                                        </columns>
                                     </TableView>
-                                    <Button fx:id="removeSelected" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Remove Selected" />
+                                    <Button fx:id="removeSelected" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleRemoveFromClasses" text="Remove Selected" />
                                     <Button fx:id="updateFreeSpace" layoutX="151.0" layoutY="14.0" mnemonicParsing="false" text="Update Free Space" />
                                  </children>
                               </AnchorPane>
