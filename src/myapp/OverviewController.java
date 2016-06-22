@@ -131,17 +131,9 @@ public class OverviewController implements Initializable {
 		return addedSections;
 	}
 
-	public void initialize(URL location, ResourceBundle resources) { // runs at
-																		// start,
-																		// window
-																		// does
-																		// not
-																		// appear
-																		// until
-																		// the
-																		// this
-																		// method
-																		// finishes.
+	//Runs at start, window does not appear until this method finishes.
+	public void initialize(URL location, ResourceBundle resources) {
+
 		System.out.println("Starting SimpleSection...");
 		loading.setVisible(false);
 		initializeTable();
@@ -163,37 +155,16 @@ public class OverviewController implements Initializable {
 	public void handleGetSections() {
 		data.clear();
 		Thread thread = new Thread() {
-			public void run() { // This runs separate from the UI Thread to
-								// prevent hanging
-				String a = department.getValue().substring(0, department.getValue().indexOf("-") - 1); // The
-																										// department
-																										// list
-																										// brings
-																										// back
-																										// a
-																										// long
-																										// string,
-																										// this
-																										// chops
-																										// it
-																										// down
-																										// to
-																										// CS,
-																										// MATH,
-																										// etc.
+			public void run() { // This runs separate from the UI Thread to prevent hanging
+				// The department list brings back a long string, this chops it down to CS, MATH, etc.
+				String a = department.getValue().substring(0, department.getValue().indexOf("-") - 1);
 				String b = number.getText(); // read course number
 				try {
 					loading.setVisible(true);
-					ArrayList<Section> sectionlist = secget.getSections(driver, a, Integer.parseInt(b), loggedIn); // gets
-																													// section
-																													// list
-					for (int i = 0; i < sectionlist.size(); i++) { // add
-																	// sections
-																	// to table.
+					ArrayList<Section> sectionlist = secget.getSections(driver, a, Integer.parseInt(b), loggedIn); // gets section list
+					for (int i = 0; i < sectionlist.size(); i++) { // add sections to table.
 						data.add(sectionlist.get(i));
-						if (sectionlist.get(i).extratimes) { // add extra time
-																// info if
-																// present
+						if (sectionlist.get(i).extratimes) { // add extra time info if present
 							data.get(i).days = data.get(i).days + "\n" + sectionlist.get(i).exDays;
 							data.get(i).begin = data.get(i).begin + "\n" + sectionlist.get(i).exBegin;
 							data.get(i).end = data.get(i).end + "\n" + sectionlist.get(i).exEnd;
@@ -205,9 +176,7 @@ public class OverviewController implements Initializable {
 					data = FXCollections.observableArrayList(data);
 					table.setItems(data);
 					sectionlist.clear();
-				} catch (NumberFormatException e) { // if you don't enter
-													// numbers into the course
-													// field
+				} catch (NumberFormatException e) { // if you don't enter numbers into the course field
 					textarea.setText("Please enter a number into the course field.");
 				}
 
@@ -232,10 +201,8 @@ public class OverviewController implements Initializable {
 		}
 	}
 
-	public void handleLogIn() { // logs into VT HokieSpa. Probably needs to stay
-								// in the controller due to webdriver
-								// limitations (unless all logic is moved out to
-								// another class)
+	public void handleLogIn() { // logs into VT HokieSpa. Probably needs to stay in the controller due to webdriver
+									// limitations (unless all logic is moved out to another class)
 
 		if (LogInButton.getText().equals("Log into HokieSpa")) {
 			LogInButton.setText("Log in!");
@@ -268,15 +235,9 @@ public class OverviewController implements Initializable {
 											// iframe to load.
 					} catch (InterruptedException e) {
 					}
-					driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click(); // TODO:
-																												// Will
-																												// fail
-																												// on
-																												// very
-																												// slow
-																												// connections;
-																												// need
-																												// try/catch.
+					driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
+					// TODO: Will fail  very slow connectons, need try/catch.
+
 					int wait = 0;
 					// wait for user to do 2-factor auth. user has 3 minutes
 					// until timeout.
@@ -296,11 +257,7 @@ public class OverviewController implements Initializable {
 				}
 			};
 
-			LogInButton.setText("Authenticating..."); // TODO: This doesn't
-														// happen and the main
-														// UI freezes. Replace
-														// join below with a
-														// better solution.
+			LogInButton.setText("Authenticating..."); // TODO: This doesn't happen and the main UI freezes. Replace join below with a better solution.
 			thread.start();
 			try {
 				thread.join();
@@ -358,13 +315,13 @@ public class OverviewController implements Initializable {
 
 	public void handleAddToClasses() {
 		Section s = table.getSelectionModel().getSelectedItem();
-		try{
+		try {
 			System.out.println(s.toString());
 			addedSections.add(s);
 			addInfoToMyList();
 			addedSections = FXCollections.observableArrayList(addedSections);
 			myClasses.setItems(addedSections);
-		} catch (Exception e){
+		} catch (Exception e) {
 			System.out.println("Invalid Selection");
 			textarea.setText("Please select a row to add, and press the Add Selected button again.");
 		}
