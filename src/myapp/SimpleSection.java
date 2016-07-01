@@ -1,6 +1,7 @@
 package myapp;
 
 import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
