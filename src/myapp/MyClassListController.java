@@ -103,5 +103,18 @@ public class MyClassListController implements Initializable{
 		mySections.setItems(SectionList.get().sections);
 	}
 
+	public void updateFree(){
+		System.out.println("Update Free Pressed");
+		SectionGetter getter = new SectionGetter();
+		ObservableList<Section> workingArea=FXCollections.observableArrayList(new ArrayList<Section>());
+		for(Section s:SectionList.get().sections){
+			workingArea.add(getter.getSection(s.getCrn(), SectionList.get().loggedIn));
+		}
+		SectionList.get().sections=workingArea;
+		
+		
+		updateTable();
+	}
+
 
 }

@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,7 +33,7 @@ public class SectionListController implements Initializable{
 		@FXML private Button getSectionsButton;
 		@FXML private ComboBox<String> department;
 		@FXML private TextField number;
-		@FXML private Label loading;
+		//@FXML private Label loading;
 		@FXML private TextArea textarea;
 		@FXML private Button LogInButton;
 		@FXML private TextField PID;
@@ -56,7 +55,6 @@ public class SectionListController implements Initializable{
 
 		@FXML private OverviewController overviewController;
 
-		private boolean loggedIn = false;
 		private ObservableList<Section> data;
 		private SectionGetter secget = new SectionGetter();
 		private WebDriver driver = new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
@@ -70,7 +68,7 @@ public class SectionListController implements Initializable{
 		public void initialize(URL location, ResourceBundle resources) {
 
 			System.out.println("Starting SimpleSection...");
-			loading.setVisible(false);
+			//loading.setVisible(false);
 			initializeTable();
 			driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
 
@@ -93,8 +91,8 @@ public class SectionListController implements Initializable{
 					String a = department.getValue().substring(0, department.getValue().indexOf("-") - 1);
 					String b = number.getText(); // read course number
 					try {
-						loading.setVisible(true);
-						ArrayList<Section> sectionlist = secget.getSections(driver, a, Integer.parseInt(b), loggedIn); // gets section list
+						//loading.setVisible(true);
+						ArrayList<Section> sectionlist = secget.getSections(a, Integer.parseInt(b), SectionList.get().loggedIn); // gets section list
 						for (int i = 0; i < sectionlist.size(); i++) { // add sections to table.
 							data.add(sectionlist.get(i));
 							if (sectionlist.get(i).extratimes) { // add extra time info if present
@@ -113,7 +111,7 @@ public class SectionListController implements Initializable{
 						textarea.setText("Please enter a number into the course field.");
 					}
 
-					loading.setVisible(false);
+					//loading.setVisible(false);
 					return;
 				}
 			};
@@ -190,19 +188,19 @@ public class SectionListController implements Initializable{
 					}
 				};
 
-				LogInButton.setText("Authenticating..."); // TODO: This doesn't happen and the main UI freezes. Replace join below with a better solution.
+				LogInButton.setText("Authenticating..."); //TODO: This doesn't happen and the main UI freezes. Replace join below with a better solution.
 				thread.start();
 				try {
 					thread.join();
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				loggedIn = false;
+				SectionList.get().loggedIn = false;
 				if (driver.getCurrentUrl()
 						.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")) {
-					loggedIn = true;
+					SectionList.get().loggedIn = true;
 				}
-				if (loggedIn == true) {
+				if (SectionList.get().loggedIn == true) {
 					LogInButton.setText("Logged in!");
 				} else {
 					PID.setVisible(true);
