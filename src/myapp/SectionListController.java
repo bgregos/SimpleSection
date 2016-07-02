@@ -56,8 +56,6 @@ public class SectionListController implements Initializable{
 		@FXML private OverviewController overviewController;
 
 		private ObservableList<Section> data;
-		private SectionGetter secget = new SectionGetter();
-		private WebDriver driver = new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
 
 		private ObservableList<Section> initializeTable() {
 			ArrayList<Section> list = new ArrayList<Section>();
@@ -66,14 +64,13 @@ public class SectionListController implements Initializable{
 		}
 
 		public void initialize(URL location, ResourceBundle resources) {
-
 			System.out.println("Starting SimpleSection...");
 			//loading.setVisible(false);
 			initializeTable();
-			driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
+			SectionList.get().driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
 
 			// Grab department list and put it into a dropdown
-			Select dropdown = new Select(driver.findElement(By.name("subj_code")));
+			Select dropdown = new Select(SectionList.get().driver.findElement(By.name("subj_code")));
 			ArrayList<WebElement> optionsListWebElements = (ArrayList<WebElement>) dropdown.getOptions();
 			ArrayList<String> departmentOptions = new ArrayList<String>();
 			for (WebElement e : optionsListWebElements) {
@@ -92,6 +89,7 @@ public class SectionListController implements Initializable{
 					String b = number.getText(); // read course number
 					try {
 						//loading.setVisible(true);
+						SectionGetter secget = new SectionGetter(SectionList.get().driver);
 						ArrayList<Section> sectionlist = secget.getSections(a, Integer.parseInt(b), SectionList.get().loggedIn); // gets section list
 						for (int i = 0; i < sectionlist.size(); i++) { // add sections to table.
 							data.add(sectionlist.get(i));
@@ -148,31 +146,31 @@ public class SectionListController implements Initializable{
 						String pass = "";
 						username = PID.getText();
 						pass = Password.getText();
-						driver.navigate().to("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_WWWLogin");
+						SectionList.get().driver.navigate().to("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_WWWLogin");
 						;
 						System.out.println("1");
-						driver.findElement(By.xpath("//body/div[2]/a")).click();
+						SectionList.get().driver.findElement(By.xpath("//body/div[2]/a")).click();
 						System.out.println("2");
-						driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(username);
+						SectionList.get().driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(username);
 						System.out.println("3");
-						driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(pass);
+						SectionList.get().driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(pass);
 						System.out.println("4");
-						driver.findElement(By.xpath("//*[@id=\"loginform\"]/fieldset/div[3]/button")).click();
+						SectionList.get().driver.findElement(By.xpath("//*[@id=\"loginform\"]/fieldset/div[3]/button")).click();
 						System.out.println("5");
-						driver.switchTo().frame("duo_iframe");
+						SectionList.get().driver.switchTo().frame("duo_iframe");
 						System.out.println("6");
 						try {
 							Thread.sleep(3000); // add a wait to allow external
 												// iframe to load.
 						} catch (InterruptedException e) {
 						}
-						driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
+						SectionList.get().driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
 						// TODO: Will fail  very slow connectons, need try/catch.
 
 						int wait = 0;
 						// wait for user to do 2-factor auth. user has 3 minutes
 						// until timeout.
-						while (!driver.getCurrentUrl()
+						while (!SectionList.get().driver.getCurrentUrl()
 								.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")
 								|| wait == 180) {
 							try {
@@ -183,7 +181,7 @@ public class SectionListController implements Initializable{
 						}
 
 						System.out.println("7");
-						driver.switchTo().defaultContent();
+						SectionList.get().driver.switchTo().defaultContent();
 
 					}
 				};
@@ -196,7 +194,7 @@ public class SectionListController implements Initializable{
 					e.printStackTrace();
 				}
 				SectionList.get().loggedIn = false;
-				if (driver.getCurrentUrl()
+				if (SectionList.get().driver.getCurrentUrl()
 						.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")) {
 					SectionList.get().loggedIn = true;
 				}

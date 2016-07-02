@@ -24,6 +24,11 @@ public class SectionGetter {
 		this(new JBrowserDriver());
 	}
 
+	/**
+	 * Constructor that allows passing in a WebDriver that you can preconfigure settings for
+	 * (an example of this is logging in to HokieSpa before using this class)
+	 * @param WebDriver driver
+	 */
 	public SectionGetter (WebDriver d){
 		list = new ArrayList<Section>();
 		this.driver=d;
@@ -101,10 +106,10 @@ public class SectionGetter {
 		int i=2;
 		list.clear();
 		Section oldsection = new Section();
+		System.out.println("Logged in: "+loggedin);
 		while(caughtEndOfSections==false){ //parse sections line-by-line until out of sections
 			try{
 				//Loads first cell of row
-				System.out.println(driver.toString());
 				element = driver.findElement(By.xpath("//table[@class=\"dataentrytable\"]/tbody/tr["+i+"]/td[1]"));
 				String text=element.getText();
 				if(text.contains("Comments for")){ //checks for comment line and adds to Section if present
@@ -159,7 +164,6 @@ public class SectionGetter {
 			catch(NoSuchElementException e){ //this runs when there are no more sections to parse
 				caughtEndOfSections=true;
 				System.out.println("Lines read: "+i);
-				e.printStackTrace();
 			}
 			i++;
 		}

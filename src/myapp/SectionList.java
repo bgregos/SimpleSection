@@ -2,6 +2,11 @@ package myapp;
 
 import java.util.ArrayList;
 
+import org.openqa.selenium.WebDriver;
+
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.Settings;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -25,4 +30,5 @@ public class SectionList {
 	//Actual data we're holding
 	public ObservableList<Section> sections=FXCollections.observableArrayList(new ArrayList<Section>());
 	public boolean loggedIn=false;
+	public WebDriver driver = new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
 }
