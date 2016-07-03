@@ -16,14 +16,14 @@ import javafx.collections.ObservableList;
  * @author bgregos
  *
  */
-public class SectionList {
+public class MyClasses {
 
 	//Constructor and Singleton stuff
-	private static SectionList instance = new SectionList();
-	public SectionList(){
+	private static MyClasses instance = new MyClasses();
+	public MyClasses(){
 
 	}
-	public static SectionList get(){
+	public static MyClasses get(){
 		return instance;
 	}
 

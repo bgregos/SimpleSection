@@ -67,10 +67,10 @@ public class SectionListController implements Initializable{
 			System.out.println("Starting SimpleSection...");
 			//loading.setVisible(false);
 			initializeTable();
-			SectionList.get().driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
+			MyClasses.get().driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
 
 			// Grab department list and put it into a dropdown
-			Select dropdown = new Select(SectionList.get().driver.findElement(By.name("subj_code")));
+			Select dropdown = new Select(MyClasses.get().driver.findElement(By.name("subj_code")));
 			ArrayList<WebElement> optionsListWebElements = (ArrayList<WebElement>) dropdown.getOptions();
 			ArrayList<String> departmentOptions = new ArrayList<String>();
 			for (WebElement e : optionsListWebElements) {
@@ -89,8 +89,8 @@ public class SectionListController implements Initializable{
 					String b = number.getText(); // read course number
 					try {
 						//loading.setVisible(true);
-						SectionGetter secget = new SectionGetter(SectionList.get().driver);
-						ArrayList<Section> sectionlist = secget.getSections(a, Integer.parseInt(b), SectionList.get().loggedIn); // gets section list
+						SectionGetter secget = new SectionGetter(MyClasses.get().driver);
+						ArrayList<Section> sectionlist = secget.getSections(a, Integer.parseInt(b), MyClasses.get().loggedIn); // gets section list
 						for (int i = 0; i < sectionlist.size(); i++) { // add sections to table.
 							data.add(sectionlist.get(i));
 							if (sectionlist.get(i).extratimes) { // add extra time info if present
@@ -146,31 +146,31 @@ public class SectionListController implements Initializable{
 						String pass = "";
 						username = PID.getText();
 						pass = Password.getText();
-						SectionList.get().driver.navigate().to("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_WWWLogin");
+						MyClasses.get().driver.navigate().to("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_WWWLogin");
 						;
 						System.out.println("1");
-						SectionList.get().driver.findElement(By.xpath("//body/div[2]/a")).click();
+						MyClasses.get().driver.findElement(By.xpath("//body/div[2]/a")).click();
 						System.out.println("2");
-						SectionList.get().driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(username);
+						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(username);
 						System.out.println("3");
-						SectionList.get().driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(pass);
+						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(pass);
 						System.out.println("4");
-						SectionList.get().driver.findElement(By.xpath("//*[@id=\"loginform\"]/fieldset/div[3]/button")).click();
+						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"loginform\"]/fieldset/div[3]/button")).click();
 						System.out.println("5");
-						SectionList.get().driver.switchTo().frame("duo_iframe");
+						MyClasses.get().driver.switchTo().frame("duo_iframe");
 						System.out.println("6");
 						try {
 							Thread.sleep(3000); // add a wait to allow external
 												// iframe to load.
 						} catch (InterruptedException e) {
 						}
-						SectionList.get().driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
+						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
 						// TODO: Will fail  very slow connectons, need try/catch.
 
 						int wait = 0;
 						// wait for user to do 2-factor auth. user has 3 minutes
 						// until timeout.
-						while (!SectionList.get().driver.getCurrentUrl()
+						while (!MyClasses.get().driver.getCurrentUrl()
 								.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")
 								|| wait == 180) {
 							try {
@@ -181,7 +181,7 @@ public class SectionListController implements Initializable{
 						}
 
 						System.out.println("7");
-						SectionList.get().driver.switchTo().defaultContent();
+						MyClasses.get().driver.switchTo().defaultContent();
 
 					}
 				};
@@ -193,12 +193,12 @@ public class SectionListController implements Initializable{
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				SectionList.get().loggedIn = false;
-				if (SectionList.get().driver.getCurrentUrl()
+				MyClasses.get().loggedIn = false;
+				if (MyClasses.get().driver.getCurrentUrl()
 						.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")) {
-					SectionList.get().loggedIn = true;
+					MyClasses.get().loggedIn = true;
 				}
-				if (SectionList.get().loggedIn == true) {
+				if (MyClasses.get().loggedIn == true) {
 					LogInButton.setText("Logged in!");
 				} else {
 					PID.setVisible(true);
@@ -231,7 +231,7 @@ public class SectionListController implements Initializable{
 			try {
 				Section s = table.getSelectionModel().getSelectedItem();
 				//add to list
-				SectionList.get().sections.add(s);
+				MyClasses.get().sections.add(s);
 
 			} catch (Exception e) {
 				e.printStackTrace();

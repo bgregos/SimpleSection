@@ -83,7 +83,7 @@ public class MyClassListController implements Initializable{
 	}
 
 	public void handleRemoveFromClasses() {
-		SectionList.get().sections.remove(mySections.getSelectionModel().getSelectedItem());
+		MyClasses.get().sections.remove(mySections.getSelectionModel().getSelectedItem());
 		updateTable();
 	}
 
@@ -100,17 +100,17 @@ public class MyClassListController implements Initializable{
 
 	public void updateTable(){
 		setupTable();
-		mySections.setItems(SectionList.get().sections);
+		mySections.setItems(MyClasses.get().sections);
 	}
 
 	public void updateFree(){
 		System.out.println("Update Free Pressed");
-		SectionGetter getter = new SectionGetter(SectionList.get().driver);
+		SectionGetter getter = new SectionGetter(MyClasses.get().driver);
 		ObservableList<Section> workingArea=FXCollections.observableArrayList(new ArrayList<Section>());
-		for(Section s:SectionList.get().sections){
-			workingArea.add(getter.getSection(s.getCrn(), SectionList.get().loggedIn));
+		for(Section s:MyClasses.get().sections){
+			workingArea.add(getter.getSection(s.getCrn(), MyClasses.get().loggedIn));
 		}
-		SectionList.get().sections=workingArea;
+		MyClasses.get().sections=workingArea;
 
 
 		updateTable();
