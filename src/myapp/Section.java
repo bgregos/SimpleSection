@@ -24,6 +24,7 @@ public class Section {
 	public String exLocation;
 	public String description="";
 	public String available="";
+	public String conflicts="";
 
 	public Section(){
 
@@ -206,6 +207,14 @@ public class Section {
 
 	public void setAvailable(String available) {
 		this.available = available;
+	}
+
+	public String getConflicts() {
+		return conflicts;
+	}
+
+	public void setConflicts(String conflicts) {
+		this.conflicts = conflicts;
 	}
 
 

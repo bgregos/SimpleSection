@@ -7,9 +7,13 @@ import myapp.Section;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -53,6 +57,8 @@ public class MyClassListController implements Initializable{
 	@FXML private TableColumn<Section, String> Start1;
 	@FXML private TableColumn<Section, String> End1;
 	@FXML private TableColumn<Section, String> Location1;
+	@FXML private TableColumn<Section, String> Conflicts1;
+	@FXML private ProgressIndicator progress;
 
 
 	public ObservableList<Section> getAddedSections(){
@@ -80,6 +86,7 @@ public class MyClassListController implements Initializable{
 		Start1.setCellValueFactory(new PropertyValueFactory<Section, String>("begin"));
 		End1.setCellValueFactory(new PropertyValueFactory<Section, String>("end"));
 		Location1.setCellValueFactory(new PropertyValueFactory<Section, String>("location"));
+		Conflicts1.setCellValueFactory(new PropertyValueFactory<Section, String>("conflicts"));
 	}
 
 	public void handleRemoveFromClasses() {
@@ -100,21 +107,45 @@ public class MyClassListController implements Initializable{
 
 	public void updateTable(){
 		setupTable();
+		MyClasses.get().checkConflicts();
 		mySections.setItems(MyClasses.get().sections);
 	}
 
 	public void updateFree(){
 		System.out.println("Update Free Pressed");
-		SectionGetter getter = new SectionGetter(MyClasses.get().driver);
-		ObservableList<Section> workingArea=FXCollections.observableArrayList(new ArrayList<Section>());
-		for(Section s:MyClasses.get().sections){
-			workingArea.add(getter.getSection(s.getCrn(), MyClasses.get().loggedIn));
-		}
-		MyClasses.get().sections=workingArea;
+		progress.setVisible(true);
+		final Task<Void> updateTask = new Task<Void>(){
+			public Void call() {
+				updateProgress(0, MyClasses.get().sections.size());
+				SectionGetter getter = new SectionGetter(MyClasses.get().driver);
+				ObservableList<Section> workingArea=FXCollections.observableArrayList(new ArrayList<Section>());
+				int i=0;
+				for(Section s:MyClasses.get().sections){
+					workingArea.add(getter.getSection(s.getCrn(), MyClasses.get().loggedIn));
+					i++;
+					updateProgress(i, MyClasses.get().sections.size());
+				}
+				MyClasses.get().sections=workingArea;
+				updateTable();
 
+				return null;
+			}
+		};
+		progress.progressProperty().bind(updateTask.progressProperty());
+		new Thread(updateTask).start();
+		updateTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+			public void handle(WorkerStateEvent t){
+				progress.setVisible(false);
+			}
+		});
+		updateTask.setOnFailed(new EventHandler<WorkerStateEvent>(){
+			public void handle(WorkerStateEvent t){
+				progress.setVisible(false);
+			}
+		});
 
-		updateTable();
 	}
+
 
 
 }

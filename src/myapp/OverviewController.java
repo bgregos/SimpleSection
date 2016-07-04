@@ -26,7 +26,7 @@ public class OverviewController implements Initializable {
 	}
 
 	public void onClickMyClasses(){
-		System.out.println("Clicked Classes Tab");
+		System.out.println("Switched Tabs");
 		myClassListController.updateTable();
 	}
 }

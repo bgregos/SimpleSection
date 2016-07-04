@@ -4,12 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import com.machinepublishers.jbrowserdriver.JBrowserDriver;
-import com.machinepublishers.jbrowserdriver.Settings;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -307,6 +303,7 @@ public class SectionListController implements Initializable{
 				Section s = table.getSelectionModel().getSelectedItem();
 				//add to list
 				MyClasses.get().sections.add(s);
+				MyClasses.get().checkConflicts();
 
 			} catch (Exception e) {
 				e.printStackTrace();
