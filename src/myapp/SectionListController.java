@@ -10,13 +10,19 @@ import org.openqa.selenium.support.ui.Select;
 
 import com.machinepublishers.jbrowserdriver.JBrowserDriver;
 import com.machinepublishers.jbrowserdriver.Settings;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -52,6 +58,8 @@ public class SectionListController implements Initializable{
 		@FXML private TableColumn<Section, String> Start;
 		@FXML private TableColumn<Section, String> End;
 		@FXML private TableColumn<Section, String> Location;
+		@FXML private ProgressBar progress;
+		@FXML private TextArea statusbox;
 
 		@FXML private OverviewController overviewController;
 
@@ -81,12 +89,14 @@ public class SectionListController implements Initializable{
 		}
 
 		public void handleGetSections() {
-			data.clear();
-			Thread thread = new Thread() {
-				public void run() { // This runs separate from the UI Thread to prevent hanging
+			progress.setVisible(true);
+			progress.setProgress(-1); //indeterminate
+			final Task<Void> task = new Task<Void>() {
+				public Void call() { // This runs separate from the UI Thread to prevent hanging
 					// The department list brings back a long string, this chops it down to CS, MATH, etc.
 					String a = department.getValue().substring(0, department.getValue().indexOf("-") - 1);
 					String b = number.getText(); // read course number
+					data.clear();
 					try {
 						//loading.setVisible(true);
 						SectionGetter secget = new SectionGetter(MyClasses.get().driver);
@@ -108,12 +118,18 @@ public class SectionListController implements Initializable{
 					} catch (NumberFormatException e) { // if you don't enter numbers into the course field
 						textarea.setText("Please enter a number into the course field.");
 					}
-
+					progress.setVisible(false);
 					//loading.setVisible(false);
-					return;
+					return null;
 				}
 			};
-			thread.start();
+			new Thread(task).start();
+			task.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+				public void handle(WorkerStateEvent t){
+					progress.setVisible(false);
+				}
+			});
+
 
 		}
 
@@ -130,42 +146,58 @@ public class SectionListController implements Initializable{
 			}
 		}
 
-		public void handleLogIn() { // logs into VT HokieSpa. Probably needs to stay in the controller due to webdriver
-										// limitations (unless all logic is moved out to another class)
+		public void handleLogIn() { // logs into VT HokieSpa.
 
 			if (LogInButton.getText().equals("Log into HokieSpa")) {
 				LogInButton.setText("Log in!");
 				PID.setVisible(true);
 				Password.setVisible(true);
 			} else if (LogInButton.getText().equals("Log in!")) {
-				Thread thread = new Thread() {
-					public void run() {
-						PID.setVisible(false);
-						Password.setVisible(false);
+				progress.setVisible(true);
+				progress.setProgress(0);
+				LogInButton.setText("Authenticating...");
+				PID.setVisible(false);
+				Password.setVisible(false);
+				System.out.println("Beginning login process...");
+
+				final Task<Boolean> logInTask = new Task<Boolean>() {
+					public Boolean call() {
+						//Log in process
 						String username = "";
 						String pass = "";
 						username = PID.getText();
 						pass = Password.getText();
 						MyClasses.get().driver.navigate().to("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_WWWLogin");
-						;
+						updateProgress(1,7);
 						System.out.println("1");
 						MyClasses.get().driver.findElement(By.xpath("//body/div[2]/a")).click();
+						updateProgress(2,7);
 						System.out.println("2");
 						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"username\"]")).sendKeys(username);
 						System.out.println("3");
+						updateProgress(3,7);
 						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"password\"]")).sendKeys(pass);
 						System.out.println("4");
+						updateProgress(4,7);
 						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"loginform\"]/fieldset/div[3]/button")).click();
 						System.out.println("5");
+						updateProgress(5,7);
+						//correct: https://login.vt.edu/profile/cas/login?execution=e1s2
+						//incorrect: https://login.vt.edu/profile/cas/login?execution=e2s2
+						if(MyClasses.get().driver.getCurrentUrl().contains("=e2")){
+							return false;
+						}
+						updateTextBox();
 						MyClasses.get().driver.switchTo().frame("duo_iframe");
 						System.out.println("6");
+						updateProgress(6,7);
 						try {
 							Thread.sleep(3000); // add a wait to allow external
 												// iframe to load.
 						} catch (InterruptedException e) {
 						}
 						MyClasses.get().driver.findElement(By.xpath("//*[@id=\"login-form\"]/fieldset[2]/div[1]/button")).click();
-						// TODO: Will fail  very slow connectons, need try/catch.
+						// TODO: Will fail on very slow connectons, need try/catch.
 
 						int wait = 0;
 						// wait for user to do 2-factor auth. user has 3 minutes
@@ -179,21 +211,55 @@ public class SectionListController implements Initializable{
 							}
 							wait++;
 						}
+						if(wait==180){
+							return false;
+						}
 
 						System.out.println("7");
+						updateProgress(7,7);
 						MyClasses.get().driver.switchTo().defaultContent();
+						return true;
 
 					}
 				};
 
-				LogInButton.setText("Authenticating..."); //TODO: This doesn't happen and the main UI freezes. Replace join below with a better solution.
-				thread.start();
-				try {
-					thread.join();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				MyClasses.get().loggedIn = false;
+				progress.progressProperty().bind(logInTask.progressProperty());
+				new Thread(logInTask).start();
+
+				logInTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+					public void handle(WorkerStateEvent t){
+						//this runs when the login part finshes
+						if(logInTask.getValue()==true){ //successful login
+						progress.setVisible(false);
+						LogInButton.setText("Logged in!");
+						statusbox.setVisible(false);
+						MyClasses.get().loggedIn = true;
+						}else{ //wrong password
+							statusbox.setVisible(true);
+							statusbox.setText("It appears you've entered a wrong PID or password.");
+							PID.setVisible(true);
+							Password.setVisible(true);
+							LogInButton.setText("Log in!");
+						}
+					}
+				});
+
+				logInTask.setOnFailed(new EventHandler<WorkerStateEvent>(){
+					//Connection likely failed
+					public void handle(WorkerStateEvent event) {
+						statusbox.setVisible(true);
+						statusbox.setText("Login process failed. Try checking your connection.");
+						PID.setVisible(true);
+						Password.setVisible(true);
+						LogInButton.setText("Log in!");
+					}
+
+				});
+
+
+
+
+				/*MyClasses.get().loggedIn = false;
 				if (MyClasses.get().driver.getCurrentUrl()
 						.equals("https://banweb.banner.vt.edu/ssb/prod/twbkwbis.P_GenMenu?name=bmenu.P_MainMnu")) {
 					MyClasses.get().loggedIn = true;
@@ -204,12 +270,21 @@ public class SectionListController implements Initializable{
 					PID.setVisible(true);
 					Password.setVisible(true);
 					LogInButton.setText("Log in!");
-				}
+				}*/
 			}
 			if (LogInButton.getText().equals("Cancel")) {
 				LogInButton.setText("Log in!");
 			}
+		}
 
+		private void updateTextBox(){
+			Platform.runLater(new Runnable(){
+				public void run(){
+					statusbox.setVisible(true);
+					statusbox.setText("PID and password accepted. Finish login by accepting the Duo push sent to you.");
+					LogInButton.setText("Waiting...");
+				}
+			});
 		}
 
 		private void addInfoToChart() {

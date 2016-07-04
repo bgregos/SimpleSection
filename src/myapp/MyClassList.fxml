@@ -18,7 +18,7 @@
 								<columns>
 									<TableColumn fx:id="CRN1" editable="false" prefWidth="58.0" text="CRN" />
 									<TableColumn fx:id="CourseNumber1" editable="false" prefWidth="96.0" text="Course" />
-									<TableColumn fx:id="Title1" editable="false" prefWidth="179.0" sortable="false" text="Title" />
+									<TableColumn fx:id="Title1" editable="false" prefWidth="179.0" text="Title" />
 									<TableColumn fx:id="Type1" editable="false" prefWidth="43.0" text="Type" />
 									<TableColumn fx:id="CreditHours1" editable="false" prefWidth="22.0" text="Cr" />
 									<TableColumn fx:id="Capacity1" editable="false" prefWidth="45.0" text="Size" />

@@ -23,8 +23,14 @@
 						<children>
 							<Pane prefHeight="565.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 								<children>
+									<ComboBox fx:id="department" layoutX="15.0" layoutY="12.0" prefWidth="150.0" promptText="Department" visibleRowCount="15" />
 									<TextField fx:id="number" layoutX="69.0" layoutY="38.0" onAction="#handleGetSections" prefHeight="26.0" prefWidth="107.0" promptText="EX: 1226" />
 									<Button fx:id="getSectionsButton" layoutX="43.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" text="Get Sections" />
+									<Button fx:id="addToClasses" layoutX="22.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleAddToClasses" text="Add to My Classes">
+										<opaqueInsets>
+											<Insets />
+										</opaqueInsets>
+									</Button>
 									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
 									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" text="Enable class availability">
 										<padding>
@@ -33,14 +39,9 @@
 									</Label>
 									<TextField fx:id="PID" layoutX="5.0" layoutY="116.0" onAction="#handleLogIn" promptText="PID" visible="false" />
 									<PasswordField fx:id="Password" layoutX="5.0" layoutY="142.0" onAction="#handleLogIn" promptText="Password" visible="false" />
-									<Button fx:id="LogInButton" layoutX="26.0" layoutY="188.0" mnemonicParsing="false" onAction="#handleLogIn" text="Log into HokieSpa" />
-									<Button fx:id="addToClasses" layoutX="22.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleAddToClasses" text="Add to My Classes">
-										<opaqueInsets>
-											<Insets />
-										</opaqueInsets>
-									</Button>
-									<ComboBox fx:id="department" layoutX="15.0" layoutY="12.0" prefWidth="150.0" promptText="Department" visibleRowCount="15" />
-                           <ProgressBar layoutX="8.0" layoutY="214.0" prefHeight="20.0" prefWidth="170.0" progress="0.0" visible="false" />
+									<Button fx:id="LogInButton" centerShape="false" contentDisplay="CENTER" layoutX="20.0" layoutY="188.0" maxWidth="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#handleLogIn" prefWidth="150.0" text="Log into HokieSpa" />
+                           <ProgressBar fx:id="progress" layoutX="8.0" layoutY="214.0" prefHeight="20.0" prefWidth="170.0" progress="0.0" visible="false" />
+                           <TextArea fx:id="statusbox" editable="false" layoutX="14.0" layoutY="243.0" prefHeight="100.0" prefWidth="161.0" visible="false" wrapText="true" />
 								</children>
 							</Pane>
 						</children>
@@ -55,7 +56,7 @@
 												<columns>
 													<TableColumn fx:id="CRN" editable="false" prefWidth="58.0" text="CRN" />
 													<TableColumn fx:id="CourseNumber" editable="false" prefWidth="96.0" text="Course" />
-													<TableColumn fx:id="Title" editable="false" prefWidth="179.0" sortable="false" text="Title" />
+													<TableColumn fx:id="Title" editable="false" prefWidth="179.0" text="Title" />
 													<TableColumn fx:id="Type" editable="false" prefWidth="43.0" text="Type" />
 													<TableColumn fx:id="CreditHours" editable="false" prefWidth="22.0" text="Cr" />
 													<TableColumn fx:id="Capacity" editable="false" prefWidth="45.0" text="Size" />
