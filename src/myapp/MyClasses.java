@@ -32,58 +32,13 @@ public class MyClasses {
 	public boolean loggedIn=false;
 	public WebDriver driver = new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
 
-	/*public void checkConflicts(){
+
+	public void checkConflicts(){ //TODO: Add checking for additional times
 		//clear all conflicts
 		for(Section s:sections){
 			s.setConflicts("");
 		}
 
-		int conflictnumber=97; //start at confict a when assigning names
-		for(int i=0; i<sections.size(); i++){
-			boolean conflictfound=false;
-			for(int j=0; j<sections.size(); j++){ //checks all others down the list
-				if(i!=j){
-					int istart=parseTime(sections.get(i).getBegin());
-					int iend=parseTime(sections.get(i).getEnd());
-					int jstart=parseTime(sections.get(j).getBegin());
-					int jend=parseTime(sections.get(j).getEnd());
-					String idays=sections.get(i).getDays();
-					String jdays=sections.get(j).getDays();
-
-					if( (istart<jend && iend>jstart) && checkDays(idays,jdays)){ //check for interference
-
-						String iCurrentConf = sections.get(i).getConflicts();
-						String jCurrentConf = sections.get(j).getConflicts();
-						boolean potconflictfound=true; //potential conflict
-
-						for(int z=0; z<iCurrentConf.length(); z++){ //check that this interference hasn't been flagged yet
-							if(jCurrentConf.contains(iCurrentConf.substring(z, z+1))){
-								potconflictfound=false;
-							}
-						}
-						if(potconflictfound){ //assign new conflict number
-							conflictnumber= checkConflictNumber(conflictnumber);
-							sections.get(i).setConflicts(iCurrentConf+" "+(char)conflictnumber);
-							sections.get(j).setConflicts(jCurrentConf+" "+(char)conflictnumber);
-							conflictfound=true;
-						}
-					}
-				}
-				if(conflictfound){
-					conflictnumber++;
-				}
-			}
-
-		}
-	}*/
-
-	public void checkConflicts(){
-		//clear all conflicts
-		for(Section s:sections){
-			s.setConflicts("");
-		}
-
-		int confnum=1;
 		for(int i=0; i<sections.size(); i++){
 			for(int j=0; j<sections.size(); j++){
 
@@ -95,35 +50,59 @@ public class MyClasses {
 				int jend=parseTime(sections.get(j).getEnd())+buffer;
 				String idays=sections.get(i).getDays();
 				String jdays=sections.get(j).getDays();
-				String icrn=sections.get(i).getCrn();
-				String jcrn=sections.get(j).getCrn();
+				String icrn=sections.get(i).getCrn().substring(0, 5);
+				String jcrn=sections.get(j).getCrn().substring(0, 5);
 				String iCurrentConf = sections.get(i).getConflicts();
 				String jCurrentConf = sections.get(j).getConflicts();
 
 
 				if(i!=j && (istart<jend && iend>jstart) && checkDays(idays,jdays)){ //check if conflict occurred
 					if(!(iCurrentConf.contains(jcrn) && jCurrentConf.contains(icrn))){ //make sure conflict is not already logged between the two
+
 						sections.get(i).setConflicts(iCurrentConf+jcrn+" ");
 						sections.get(j).setConflicts(jCurrentConf+icrn+" ");
 					}
 				}
-
 			}
 		}
-
+		crnsToConflictNumbers();
 	}
 
 	/**
-	 * Prevents skipping conflict numbers
-	 * @param int conflictnumber
+	 * Converts CRN conflict notifications into A, B, C, etc.
 	 */
-	private int checkConflictNumber(int number){
+	private void crnsToConflictNumbers(){
+		System.out.println("Converting CRNs to conf numbers...");
+
+		int confNumber=65; //start with A
 		for(int i=0; i<sections.size(); i++){
-			if(!sections.get(i).getConflicts().contains(""+(char)number)){
-				return number--;
+			for(int j=0; j<sections.size(); j++){
+				String icrn=sections.get(i).getCrn().substring(0,5);
+				String jcrn=sections.get(j).getCrn().substring(0,5);
+				String iconf=sections.get(i).getConflicts();
+				String jconf=sections.get(j).getConflicts();
+				System.out.println(iconf);
+				System.out.println(jcrn);
+
+				if(iconf.contains(jcrn)){
+
+					System.out.println(icrn+" "+jcrn);
+					System.out.println(iconf+" "+jconf);
+					//System.out.println("xx"+sections.get(i).getCrn()+"xx");
+
+					iconf=iconf.replaceAll(jcrn, ""+(char)confNumber);
+					jconf=jconf.replaceAll(icrn, ""+(char)confNumber);
+
+					//System.out.println("hello there".replace("there", "a"));
+
+					System.out.println(iconf+" "+jconf);
+
+					sections.get(i).setConflicts(iconf);
+					sections.get(j).setConflicts(jconf);
+					confNumber++;
+				}
 			}
 		}
-		return number;
 	}
 
 	/**
@@ -136,7 +115,7 @@ public class MyClasses {
 		//remove whitespace
 		a=a.replaceAll("\\s", "");
 		b=b.replaceAll("\\s", "");
-		System.out.println(a+" "+b);
+		//System.out.println(a+" "+b);
 
 		for(int i=0; i<a.length(); i++){
 			if(b.contains(a.substring(i, i+1))){
@@ -150,21 +129,21 @@ public class MyClasses {
 	 * Takes a String AM/PM time and returns a int representation of it in minutes since midnight
 	 * @return int minutes since midnight
 	 */
-	private int parseTime(String time){ //TODO: Fix 12am/pm handling
+	private int parseTime(String time){
 		int out=0;
 		int idx=time.indexOf(":");
 		if(time.contains("PM")&&(!(time.contains("12:")))){
 			out+=720;
-			System.out.print(" PM ");
+			//System.out.print(" PM ");
 		}else
 		if(time.contains("AM")&&time.contains("12:")){
-			System.out.print(" AM ");
+			//System.out.print(" AM ");
 			out-=720;
 		}
 		int hours=Integer.parseInt(time.substring(0, idx));
 		int minutes=Integer.parseInt(time.substring(idx+1,idx+3));
 		out=(60*hours)+minutes+out;
-		System.out.println(out);
+		//System.out.println(out);
 		return out;
 	}
 }
