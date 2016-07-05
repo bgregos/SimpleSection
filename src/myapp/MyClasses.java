@@ -56,16 +56,68 @@ public class MyClasses {
 				String jCurrentConf = sections.get(j).getConflicts();
 
 
-				if(i!=j && (istart<jend && iend>jstart) && checkDays(idays,jdays)){ //check if conflict occurred
+				//if(i!=j && (istart<jend && iend>jstart) && checkDays(idays,jdays)){ //check if conflict occurred
+				if(i!=j && check(i,j)){ //check if conflict occurred
 					if(!(iCurrentConf.contains(jcrn) && jCurrentConf.contains(icrn))){ //make sure conflict is not already logged between the two
-
 						sections.get(i).setConflicts(iCurrentConf+jcrn+" ");
 						sections.get(j).setConflicts(jCurrentConf+icrn+" ");
 					}
 				}
+
 			}
 		}
 		crnsToConflictNumbers();
+	}
+
+	/**
+	 * Checks for conlicts
+	 */
+	private boolean check(int i, int j){
+		int buffer=7; //Half of time between classes. VT is 15 min. Round down.
+
+		int istart=parseTime(sections.get(i).getBegin())-buffer;
+		int iend=parseTime(sections.get(i).getEnd())+buffer;
+		int jstart=parseTime(sections.get(j).getBegin())-buffer;
+		int jend=parseTime(sections.get(j).getEnd())+buffer;
+		String idays=sections.get(i).getDays();
+		String jdays=sections.get(j).getDays();
+
+		boolean iextratimes=false;
+		int iexstart=0;
+		int iexend=0;
+		if(sections.get(i).getExtratimes()){
+			iextratimes=true;
+			iexstart=parseTime(sections.get(i).getExBegin())-buffer;
+			iexend=parseTime(sections.get(i).getExEnd())+buffer;
+		}
+
+		boolean jextratimes=false;
+		int jexstart=0;
+		int jexend=0;
+		if(sections.get(j).getExtratimes()){
+			jextratimes=true;
+			jexstart=parseTime(sections.get(j).getExBegin())-buffer;
+			jexend=parseTime(sections.get(j).getExEnd())+buffer;
+		}
+
+		String iexdays=sections.get(i).getExDays();
+		String jexdays=sections.get(j).getExDays();
+
+		if((istart<jend && iend>jstart) && checkDays(idays,jdays)){  //no extra times, keeps things simple
+			return true;
+		}
+		if(iextratimes || jextratimes){ //are extra times are involved?
+			if((jextratimes && istart<jexend && iend>jexstart) && checkDays(idays,jexdays)){  //check j's extra time against i's regular
+				return true;
+			}
+			if((iextratimes && iexstart<jend && iexend>jstart) && checkDays(iexdays,jdays)){  //check i's extra time against j's regular
+				return true;
+			}
+			if(((iextratimes && jextratimes) && iexstart<jexend && iexend>jexstart) && checkDays(iexdays,jexdays)){  //check each extra time against the other
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**

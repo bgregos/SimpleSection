@@ -153,7 +153,7 @@ public class Section {
 		this.exam = exam;
 	}
 
-	public boolean isExtratimes() {
+	public boolean getExtratimes() {
 		return extratimes;
 	}
 
