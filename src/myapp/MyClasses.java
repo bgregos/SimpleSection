@@ -107,6 +107,7 @@ public class MyClasses {
 			return true;
 		}
 		if(iextratimes || jextratimes){ //are extra times are involved?
+			System.out.println("Extra times detected for purposes of course conflict detection");
 			if((jextratimes && istart<jexend && iend>jexstart) && checkDays(idays,jexdays)){  //check j's extra time against i's regular
 				return true;
 			}

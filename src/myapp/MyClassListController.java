@@ -1,8 +1,16 @@
 package myapp;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import org.apache.commons.io.FilenameUtils;
+
 import myapp.Section;
 
 import javafx.collections.FXCollections;
@@ -18,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 
 /**
  * Handles MyClassListTab. Certain parts are exposed to other Tabs.
@@ -59,6 +68,7 @@ public class MyClassListController implements Initializable{
 	@FXML private TableColumn<Section, String> Location1;
 	@FXML private TableColumn<Section, String> Conflicts1;
 	@FXML private ProgressIndicator progress;
+	@FXML final private FileChooser fileChooser = new FileChooser();
 
 
 	public ObservableList<Section> getAddedSections(){
@@ -143,6 +153,76 @@ public class MyClassListController implements Initializable{
 				progress.setVisible(false);
 			}
 		});
+
+	}
+
+	public void handleSaveClasses(){
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("VT Class files (*.csv)", "*.csv");
+		fileChooser.getExtensionFilters().addAll(extFilter);
+		File file = fileChooser.showSaveDialog(mySections.getScene().getWindow());
+		if (!FilenameUtils.getExtension(file.getName()).equalsIgnoreCase("csv")) {
+		    //add csv if not present
+			file = new File(file.toString() + ".csv");
+		    file = new File(file.getParentFile(), FilenameUtils.getBaseName(file.getName())+".csv"); // ALTERNATIVELY: remove the extension (if any) and replace it with ".xml"
+		}
+        if (file != null) {
+        	try {
+				file.createNewFile();
+				FileWriter writer = new FileWriter(file);
+				for(Section s:MyClasses.get().sections){
+					writer.append(s.crn+"\n");
+				}
+				writer.flush();
+				writer.close();
+				System.out.println("File Saved.");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+        }
+	}
+
+	public void handleLoadClasses(){
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("VT Class files (*.csv)", "*.csv");
+		fileChooser.getExtensionFilters().addAll(extFilter);
+		File file = fileChooser.showOpenDialog(mySections.getScene().getWindow());
+		ArrayList<Character> chars= new ArrayList<Character>();
+		boolean read=false;
+		try {
+			FileReader reader = new FileReader(file);
+			int in = reader.read();
+			while(in!=-1){
+				chars.add((char)in);
+				in=reader.read();
+			}
+			reader.close();
+			read=true;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e){
+			e.printStackTrace();
+		}
+
+		if(read){
+			String currentcrn="";
+			SectionGetter secget=new SectionGetter(MyClasses.get().driver);
+			for(char c:chars){
+				if(c=='\n'){
+					System.out.println("Current Read CRN: "+currentcrn);
+					Section sect = secget.getSection(currentcrn, MyClasses.get().loggedIn);
+					MyClasses.get().sections.add(sect);
+					updateTable();
+					currentcrn="";
+				}else{
+					currentcrn=currentcrn+c;
+				}
+
+			}
+		}
+
 
 	}
 

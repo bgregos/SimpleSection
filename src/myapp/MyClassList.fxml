@@ -35,6 +35,8 @@
 							<Button fx:id="removeSelected" layoutX="49.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleRemoveFromClasses" text="Remove Selected" />
 							<Button fx:id="updateFreeSpace" layoutX="187.0" layoutY="14.0" mnemonicParsing="false" onAction="#updateFree" text="Update Free Space" />
                      <ProgressIndicator fx:id="progress" layoutX="7.0" layoutY="4.0" progress="0.0" visible="false" />
+                     <Button fx:id="saveClasses" layoutX="336.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSaveClasses" text="Save Classes" />
+                     <Button fx:id="loadClasses" layoutX="447.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadClasses" text="Load Classes" />
 						</children>
 					</AnchorPane>
 					<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
