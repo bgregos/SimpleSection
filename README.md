@@ -11,4 +11,6 @@ Features:
 
 Requirements:
 - Windows Vista or greater, macOS/OSX, Linux
-- Java SE 1.8 or greater. (Oracle JRE/JDK only. OpenJDK is unsupported.)
+- Java 8u40 or greater. (Oracle JRE/JDK only. OpenJDK is unsupported.)
+
+You can get the latest version of Java [here](https://java.com/en/download/).
