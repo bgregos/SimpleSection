@@ -146,7 +146,6 @@ public class SectionGetter {
 						}
 						else{
 							s.capacity = driver.findElement(By.xpath("//table[@class=\"dataentrytable\"]/tbody/tr["+i+"]/td[6]")).getText();
-							System.out.println(s.capacity);
 							s.instructor = driver.findElement(By.xpath("//table[@class=\"dataentrytable\"]/tbody/tr["+i+"]/td[7]")).getText();
 							s.days = driver.findElement(By.xpath("//table[@class=\"dataentrytable\"]/tbody/tr["+i+"]/td[8]")).getText();
 							s.begin = driver.findElement(By.xpath("//table[@class=\"dataentrytable\"]/tbody/tr["+i+"]/td[9]")).getText();

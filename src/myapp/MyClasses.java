@@ -134,21 +134,20 @@ public class MyClasses {
 				String jcrn=sections.get(j).getCrn().substring(0,5);
 				String iconf=sections.get(i).getConflicts();
 				String jconf=sections.get(j).getConflicts();
-				System.out.println(iconf);
-				System.out.println(jcrn);
+				//System.out.println(iconf);
+				//System.out.println(jcrn);
 
 				if(iconf.contains(jcrn)){
 
-					System.out.println(icrn+" "+jcrn);
-					System.out.println(iconf+" "+jconf);
+					//System.out.println(icrn+" "+jcrn);
+					//System.out.println(iconf+" "+jconf);
 					//System.out.println("xx"+sections.get(i).getCrn()+"xx");
 
 					iconf=iconf.replaceAll(jcrn, ""+(char)confNumber);
 					jconf=jconf.replaceAll(icrn, ""+(char)confNumber);
 
 					//System.out.println("hello there".replace("there", "a"));
-
-					System.out.println(iconf+" "+jconf);
+					//System.out.println(iconf+" "+jconf);
 
 					sections.get(i).setConflicts(iconf);
 					sections.get(j).setConflicts(jconf);

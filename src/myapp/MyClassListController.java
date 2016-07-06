@@ -20,6 +20,8 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
@@ -175,6 +177,12 @@ public class MyClassListController implements Initializable{
 				writer.flush();
 				writer.close();
 				System.out.println("File Saved.");
+				System.out.println("Filename="+file.getName());
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("Success!");
+				alert.setHeaderText("Save Completed!");
+				alert.setContentText("Save completed successfully.");
+				alert.showAndWait();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -200,30 +208,74 @@ public class MyClassListController implements Initializable{
 			reader.close();
 			read=true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Oh my!");
+			alert.setContentText("File not found.");
+			alert.showAndWait();
 		} catch (IOException e){
-			e.printStackTrace();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Oh my!");
+			alert.setContentText("Read error occurred.");
+			alert.showAndWait();
 		}
 
 		if(read){
-			String currentcrn="";
-			SectionGetter secget=new SectionGetter(MyClasses.get().driver);
-			for(char c:chars){
-				if(c=='\n'){
-					System.out.println("Current Read CRN: "+currentcrn);
-					Section sect = secget.getSection(currentcrn, MyClasses.get().loggedIn);
-					MyClasses.get().sections.add(sect);
-					updateTable();
-					currentcrn="";
-				}else{
-					currentcrn=currentcrn+c;
-				}
+			addLoadedClasses(chars);
+		}
+	}
 
-			}
+	public void addLoadedClasses(final ArrayList<Character> chars){
+		System.out.println("Added Classes: ");
+		for(char c:chars){
+			System.out.print(c);
 		}
 
+		progress.setVisible(true);
+		final Task<Void> addClassesTask = new Task<Void>(){
+			public Void call() {
+				try{
+					float size=chars.size()/6;
+					updateProgress(0,size);
+					String currentcrn="";
+					SectionGetter secget=new SectionGetter(MyClasses.get().driver);
+					int progresscounter=0;
+					for(char c:chars){
+						if(c=='\n'){
+							System.out.println("Current Read CRN: "+currentcrn);
+							Section sect = secget.getSection(currentcrn, MyClasses.get().loggedIn);
+							MyClasses.get().sections.add(sect);
+							updateTable();
+							currentcrn="";
+							progresscounter++;
+							updateProgress(progresscounter, size);
+						}else{
+							currentcrn=currentcrn+c;
+						}
 
+					}
+
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+				return null;
+			}
+		};
+
+		progress.progressProperty().bind(addClassesTask.progressProperty());
+		new Thread(addClassesTask).start();
+		addClassesTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+			public void handle(WorkerStateEvent t){
+				progress.setVisible(false);
+			}
+		});
+		addClassesTask.setOnFailed(new EventHandler<WorkerStateEvent>(){
+			public void handle(WorkerStateEvent t){
+				System.out.println("Add Classes Task Failed");
+				progress.setVisible(false);
+			}
+		});
 	}
 
 
