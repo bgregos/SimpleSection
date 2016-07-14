@@ -181,7 +181,7 @@ public class MyClasses {
 	 * Takes a String AM/PM time and returns a int representation of it in minutes since midnight
 	 * @return int minutes since midnight
 	 */
-	private int parseTime(String time){
+	public int parseTime(String time){
 		int out=0;
 		int idx=time.indexOf(":");
 		if(time.contains("PM")&&(!(time.contains("12:")))){
