@@ -25,20 +25,13 @@ public class OverviewController implements Initializable {
 	// Schedule Tab
 	@FXML private MyClassListController myClassListController;
 	@FXML private ScheduleController scheduleTabController;
-	@FXML private WebView webview;
-	@FXML private Button backButton;
-	@FXML private Button forwardButton;
-	@FXML private Button koofers;
 	@FXML private TextArea aboutText;
-	private WebEngine webEngine;
 
 	// About Tab
 	//nothing here yet!
 
 	//Runs at start, window does not appear until this method finishes.
 	public void initialize(URL location, ResourceBundle resources) {
-		webEngine=webview.getEngine();
-		webEngine.load("https://www.koofers.com/virginia-tech-vt/professors");
 		File file = new File("README.txt");
 		try {
 	        Scanner s = new Scanner(file);
@@ -52,8 +45,6 @@ public class OverviewController implements Initializable {
 
 	}
 
-
-
 	public void onClickMyClasses(){
 		System.out.println("Switched Tabs");
 		myClassListController.updateTable();
@@ -63,17 +54,5 @@ public class OverviewController implements Initializable {
 		System.out.println("Switched Tabs");
 		scheduleTabController.refresh();
 
-	}
-
-	public void onBack(){
-		webEngine.getHistory().go(-1);
-	}
-
-	public void onForward(){
-		webEngine.getHistory().go(1);
-	}
-
-	public void onKoofers(){
-		webEngine.load("https://www.koofers.com/virginia-tech-vt/professors");
 	}
 }

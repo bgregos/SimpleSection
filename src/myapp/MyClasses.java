@@ -44,12 +44,7 @@ public class MyClasses {
 
 				int buffer=7; //Half of time between classes. VT is 15 min. Round down.
 				//To make each class "wider"
-				int istart=parseTime(sections.get(i).getBegin())-buffer;
-				int iend=parseTime(sections.get(i).getEnd())+buffer;
-				int jstart=parseTime(sections.get(j).getBegin())-buffer;
-				int jend=parseTime(sections.get(j).getEnd())+buffer;
-				String idays=sections.get(i).getDays();
-				String jdays=sections.get(j).getDays();
+
 				String icrn=sections.get(i).getCrn().substring(0, 5);
 				String jcrn=sections.get(j).getCrn().substring(0, 5);
 				String iCurrentConf = sections.get(i).getConflicts();
