@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane prefHeight="529.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.SectionListController">
+<AnchorPane prefHeight="529.0" prefWidth="1180.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.SectionListController">
 	<AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<children>
 			<SplitPane dividerPositions="0.16202090592334495" focusTraversable="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -25,14 +25,14 @@
 								<children>
 									<ComboBox fx:id="department" layoutX="15.0" layoutY="12.0" prefWidth="150.0" promptText="Department" visibleRowCount="15" />
 									<TextField fx:id="number" layoutX="69.0" layoutY="38.0" onAction="#handleGetSections" prefHeight="26.0" prefWidth="107.0" promptText="EX: 1226" />
-									<Button fx:id="getSectionsButton" layoutX="43.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" text="Get Sections" />
-									<Button fx:id="addToClasses" layoutX="22.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleAddToClasses" text="Add to My Classes">
+									<Button fx:id="getSectionsButton" layoutX="43.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" stylesheets="@style.css" text="Get Sections" />
+									<Button fx:id="addToClasses" layoutX="25.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleAddToClasses" stylesheets="@style.css" text="Add to My Classes">
 										<opaqueInsets>
 											<Insets />
 										</opaqueInsets>
 									</Button>
-									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
-									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" text="Enable class availability">
+									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" style="-fx-text-fill: #FFFFFF;" text="Number" />
+									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" style="-fx-text-fill: #FFFFFF;" text="Enable class availability">
 										<padding>
 											<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
 										</padding>
