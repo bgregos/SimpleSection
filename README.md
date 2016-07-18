@@ -15,6 +15,9 @@ Requirements:
 
 You can get the latest version of Java [here](https://java.com/en/download/).
 
+#Installing
+SimpleSection is currently in beta. If you are interested in giving it a shot, go to the releases tab up top.
+
 #Contributing
 Thanks for your interest. To get started, you'll need a working Efxclipse install, and import this repository as a project into eclipse from there.
 
