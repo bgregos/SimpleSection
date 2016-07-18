@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SimpleSection.jar" size="13076" download="eager" />
+    <jar href="SimpleSection.jar" size="37246" download="eager" />
     <jar href="libs/commons-codec-1.9.jar" size="263965" download="eager" />
     <jar href="libs/commons-exec-1.3.jar" size="54423" download="eager" />
     <jar href="libs/commons-io-2.4.jar" size="185140" download="eager" />
@@ -23,6 +23,10 @@
     <jar href="libs/httpcore-4.4.4.jar" size="326724" download="eager" />
     <jar href="libs/jbrowserdriver-0.14.5.jar" size="572307" download="eager" />
     <jar href="libs/jbrowserdriver-0.14.6.jar" size="572351" download="eager" />
+    <jar href="libs/jfxtras-agenda-8.0-r5.jar" size="220654" download="eager" />
+    <jar href="libs/jfxtras-common-8.0-r5.jar" size="54046" download="eager" />
+    <jar href="libs/jfxtras-controls-8.0-r5.jar" size="267283" download="eager" />
+    <jar href="libs/jfxtras-fxml-8.0-r5.jar" size="2091" download="eager" />
     <jar href="libs/jna-3.0.9.jar" size="795871" download="eager" />
     <jar href="libs/jna-4.1.0.jar" size="914597" download="eager" />
     <jar href="libs/jna-platform-4.1.0.jar" size="1464423" download="eager" />
