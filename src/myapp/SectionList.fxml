@@ -26,12 +26,12 @@
 									<ComboBox fx:id="department" layoutX="15.0" layoutY="12.0" prefWidth="150.0" promptText="Department" visibleRowCount="15" />
 									<TextField fx:id="number" layoutX="69.0" layoutY="38.0" onAction="#handleGetSections" prefHeight="26.0" prefWidth="107.0" promptText="EX: 1226" />
 									<Button fx:id="getSectionsButton" layoutX="43.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleGetSections" stylesheets="@style.css" text="Get Sections" />
-									<Button fx:id="addToClasses" layoutX="25.0" layoutY="97.0" mnemonicParsing="false" onAction="#handleAddToClasses" stylesheets="@style.css" text="Add to My Classes">
+									<Button fx:id="addToClasses" layoutX="26.0" layoutY="90.0" mnemonicParsing="false" onAction="#handleAddToClasses" stylesheets="@style.css" text="Add to My Classes">
 										<opaqueInsets>
 											<Insets />
 										</opaqueInsets>
 									</Button>
-									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" style="-fx-text-fill: #FFFFFF;" text="Number" />
+									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
 									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" style="-fx-text-fill: #FFFFFF;" text="Enable class availability">
 										<padding>
 											<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />

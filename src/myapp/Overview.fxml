@@ -26,11 +26,13 @@
 						<fx:include fx:id="myClassList" source="MyClassList.fxml" />
 					</content>
 				</Tab>
+				<!--
 				<Tab onSelectionChanged="#onClickSchedule" text="Schedule">
 					<content>
 						<fx:include fx:id="scheduleTab" source="Schedule.fxml" />
 					</content>
 				</Tab>
+				-->
 				<Tab text="Professor Ratings">
 					<content>
 						<fx:include fx:id="RatingsTab" source="RatingsTab.fxml" />
