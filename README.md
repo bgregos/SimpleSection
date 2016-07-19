@@ -6,6 +6,7 @@ Using SimpleSection, you can find classes and sections, sort them, and save them
 Features:
 - Search and sort class sections
 - Create, save, and export a list of your classes
+- Get notified if you've selected conflicting classes before making changes in HokieSPA
 - Check section availability
 - Compare professor reviews and access HokieSpa to change courses in-app
 
