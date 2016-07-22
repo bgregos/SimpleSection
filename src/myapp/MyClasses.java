@@ -4,15 +4,13 @@ import java.util.ArrayList;
 
 import org.openqa.selenium.WebDriver;
 
-import com.machinepublishers.jbrowserdriver.JBrowserDriver;
-import com.machinepublishers.jbrowserdriver.Settings;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
  * This singleton facilitates communication between the Section List tab and the My Classes tab.
  * It contains the list of sections the user has saved and current login status.
+ * It also has methods to check for conflicts between different user-selected sections.
  * @author bgregos
  *
  */
@@ -30,7 +28,7 @@ public class MyClasses {
 	//Actual data we're holding
 	public ObservableList<Section> sections=FXCollections.observableArrayList(new ArrayList<Section>());
 	public boolean loggedIn=false;
-	public WebDriver driver = new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
+	public WebDriver driver;
 
 
 	public void checkConflicts(){ //TODO: Add checking for additional times

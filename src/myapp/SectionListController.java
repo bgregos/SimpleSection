@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.WebDriver;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -24,6 +25,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import com.machinepublishers.jbrowserdriver.JBrowserDriver;
+import com.machinepublishers.jbrowserdriver.Settings;
 
 /**
  * This class handles the Section List Tab.
@@ -69,19 +73,47 @@ public class SectionListController implements Initializable{
 
 		public void initialize(URL location, ResourceBundle resources) {
 			System.out.println("Starting SimpleSection...");
+			doStartup();
 			//loading.setVisible(false);
-			initializeTable();
-			MyClasses.get().driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
 
-			// Grab department list and put it into a dropdown
-			Select dropdown = new Select(MyClasses.get().driver.findElement(By.name("subj_code")));
-			ArrayList<WebElement> optionsListWebElements = (ArrayList<WebElement>) dropdown.getOptions();
-			ArrayList<String> departmentOptions = new ArrayList<String>();
-			for (WebElement e : optionsListWebElements) {
-				departmentOptions.add(e.getText());
-			}
-			ObservableList<String> list = FXCollections.observableArrayList(departmentOptions);
-			department.setItems(list);
+		}
+
+		public void doStartup(){
+			final Task<Void> startupTask = new Task<Void>() {
+				public Void call() {
+					initializeTable();
+					MyClasses.get().driver= new JBrowserDriver(Settings.builder().headless(true).cache(true).build());
+					MyClasses.get().driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016");
+
+					// Grab department list and put it into a dropdown
+					Select dropdown = new Select(MyClasses.get().driver.findElement(By.name("subj_code")));
+					ArrayList<WebElement> optionsListWebElements = (ArrayList<WebElement>) dropdown.getOptions();
+					ArrayList<String> departmentOptions = new ArrayList<String>();
+					for (WebElement e : optionsListWebElements) {
+						departmentOptions.add(e.getText());
+					}
+					ObservableList<String> list = FXCollections.observableArrayList(departmentOptions);
+					department.setItems(list);
+					return null;
+				}
+			};
+			//progress.progressProperty().bind(logInTask.progressProperty());
+			new Thread(startupTask).start();
+
+			startupTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
+				public void handle(WorkerStateEvent t){
+					//this runs when the login part finshes
+					System.out.println("loaded!");
+				}
+			});
+
+			startupTask.setOnFailed(new EventHandler<WorkerStateEvent>(){
+				//Connection likely failed
+				public void handle(WorkerStateEvent event) {
+					System.out.println("SimpleSection loading failed.");
+				}
+
+			});
 		}
 
 		public void handleGetSections() {
