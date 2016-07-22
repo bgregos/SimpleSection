@@ -8,7 +8,7 @@ Features:
 - Create, save, and export a list of your classes
 - Get notified if you've selected conflicting classes before making changes in HokieSPA
 - Check section availability
-- Compare professor reviews and access HokieSpa to change courses in-app
+- Compare professor reviews, access GPA histories, and make changes inside HokieSpa in-app.
 
 Requirements:
 - Windows Vista or greater, macOS/OSX, Linux
