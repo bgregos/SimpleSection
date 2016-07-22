@@ -32,7 +32,7 @@
 										</opaqueInsets>
 									</Button>
 									<Label focusTraversable="false" layoutX="8.0" layoutY="43.0" text="Number" />
-									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" style="-fx-text-fill: #FFFFFF;" text="Enable class availability">
+									<Label focusTraversable="false" layoutX="14.0" layoutY="168.0" prefHeight="20.0" prefWidth="161.0" text="Enable class availability">
 										<padding>
 											<Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
 										</padding>

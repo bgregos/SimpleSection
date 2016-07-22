@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="509.0" stylesheets="@style.css" prefWidth="1040.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.MyClassListController">
+<AnchorPane prefHeight="509.0" prefWidth="1040.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.MyClassListController">
 	<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 		<children>
 			<SplitPane dividerPositions="0.88" orientation="VERTICAL" prefHeight="567.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -37,6 +37,7 @@
                      <ProgressIndicator fx:id="progress" layoutX="7.0" layoutY="4.0" progress="0.0" visible="false" />
                      <Button fx:id="saveClasses" layoutX="336.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSaveClasses" text="Save Classes" />
                      <Button fx:id="loadClasses" layoutX="447.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLoadClasses" text="Load Classes" />
+                     <Button fx:id="addByCRN" layoutX="557.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddByCRN" text="Add by CRN" />
 						</children>
 					</AnchorPane>
 					<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">

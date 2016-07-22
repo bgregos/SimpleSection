@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import org.apache.commons.io.FilenameUtils;
@@ -27,6 +28,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 
@@ -54,6 +56,7 @@ public class MyClassListController implements Initializable{
 	@FXML private TableView<Section> mySections=new TableView<Section>();
 	@FXML private Button removeSelected;
 	@FXML private Button updateFreeSpace;
+	@FXML private Button addByCRN;
 	@FXML private TextArea mySectionsComments;
 
 	@FXML private TableColumn<Section, String> CRN1;
@@ -190,6 +193,20 @@ public class MyClassListController implements Initializable{
 
 
         }
+	}
+
+	public void handleAddByCRN(){
+		//Thanks to makery.ch for this bit (has been modified)
+		TextInputDialog dialog = new TextInputDialog("");
+		dialog.setTitle("Input CRN");
+		dialog.setHeaderText("Type in a CRN");
+		dialog.setContentText("Class to add:");
+
+		Optional<String> result = dialog.showAndWait();
+		if (result.isPresent()){
+		    SectionGetter secget= new SectionGetter(MyClasses.get().driver);
+		    MyClasses.get().sections.add(secget.getSection(result.get(), MyClasses.get().loggedIn));
+		}
 	}
 
 	public void handleLoadClasses(){
