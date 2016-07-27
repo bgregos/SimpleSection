@@ -32,6 +32,9 @@ Is my password secure when logging in through SimpleSection?
 What methods of Two-Factor Authentication are supported?
 - Push is the only supported method at the moment.
 
+How do I sort classes?
+- In the table, click on the title for each column to sort ascending or descending.
+
 Can you add X feature or fix Y bug?
 - Sure! Just file an issue against this project and it'll be looked at. Alternatively, if you want to do it yourself, submit a pull request.
 
