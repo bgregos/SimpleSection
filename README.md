@@ -20,6 +20,11 @@ You can get the latest version of Java [here](https://java.com/en/download/).
 #Installing
 SimpleSection is currently in beta. If you are interested in giving it a shot, go to the releases tab up top.
 
+On Windows: extract the file and double-click the .jar file to launch.
+
+On OSX/Linux:
+Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``
+
 #Frequently Asked Questions
 Is my password secure when logging in through SimpleSection?
 - Yes, it is. SimpleSection does not store or send your data anywhere other than HokieSPA when logging in. It logs in exactly as you would, except through an headless web browser. If you want to read more about headless web browsers, check out the Selenium WebDriver project.
