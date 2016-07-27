@@ -23,11 +23,14 @@ SimpleSection is currently in beta. If you are interested in giving it a shot, g
 On Windows: extract the file and double-click the .jar file to launch.
 
 On OSX/Linux:
-Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``
+Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``.
 
 #Frequently Asked Questions
 Is my password secure when logging in through SimpleSection?
 - Yes, it is. SimpleSection does not store or send your data anywhere other than HokieSPA when logging in. It logs in exactly as you would, except through an headless web browser. If you want to read more about headless web browsers, check out the Selenium WebDriver project.
+
+What methods of Two-Factor Authentication are supported?
+- Push is the only supported method at the moment.
 
 Can you add X feature or fix Y bug?
 - Sure! Just file an issue against this project and it'll be looked at. Alternatively, if you want to do it yourself, submit a pull request.
