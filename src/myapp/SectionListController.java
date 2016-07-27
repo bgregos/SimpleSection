@@ -215,6 +215,10 @@ public class SectionListController implements Initializable{
 						if(MyClasses.get().driver.getCurrentUrl().contains("=e2")){
 							return false;
 						}
+						if(MyClasses.get().driver.getPageSource().contains("Invalid")){
+							System.out.println("Invalid Credentials.");
+							return false;
+						}
 						updateTextBox();
 						MyClasses.get().driver.switchTo().frame("duo_iframe");
 						System.out.println("6");
@@ -247,7 +251,6 @@ public class SectionListController implements Initializable{
 						updateProgress(7,7);
 						MyClasses.get().driver.switchTo().defaultContent();
 						return true;
-
 					}
 				};
 
@@ -256,13 +259,17 @@ public class SectionListController implements Initializable{
 
 				logInTask.setOnSucceeded(new EventHandler<WorkerStateEvent>(){
 					public void handle(WorkerStateEvent t){
+						System.out.println("Login Succeeded");
 						//this runs when the login part finshes
 						if(logInTask.getValue()==true){ //successful login
 						progress.setVisible(false);
-						LogInButton.setText("Logged in!");
+						progress.progressProperty().unbind();
 						statusbox.setVisible(false);
 						MyClasses.get().loggedIn = true;
+						LogInButton.setText("Logged in!");
 						}else{ //wrong password
+							progress.setVisible(false);
+							progress.progressProperty().unbind();
 							statusbox.setVisible(true);
 							statusbox.setText("It appears you've entered a wrong PID or password.");
 							PID.setVisible(true);
@@ -276,6 +283,7 @@ public class SectionListController implements Initializable{
 					//Connection likely failed
 					public void handle(WorkerStateEvent event) {
 						statusbox.setVisible(true);
+						progress.progressProperty().unbind();
 						statusbox.setText("Login process failed. Try checking your connection.");
 						PID.setVisible(true);
 						Password.setVisible(true);

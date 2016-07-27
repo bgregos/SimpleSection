@@ -32,6 +32,10 @@ public class MyClasses {
 
 
 	public void checkConflicts(){ //TODO: Add checking for additional times
+		if(sections.size()==0){
+			return;
+		}
+
 		//clear all conflicts
 		for(Section s:sections){
 			s.setConflicts("");
