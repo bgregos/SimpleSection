@@ -36,6 +36,6 @@ Can you add X feature or fix Y bug?
 - Sure! Just file an issue against this project and it'll be looked at. Alternatively, if you want to do it yourself, submit a pull request.
 
 #Contributing
-Thanks for your interest. To get started, you'll need a working Efxclipse install, and import this repository as a project into eclipse from there.
+Thanks for your interest. To get started, you'll need a working Efxclipse install, and import this repository as a project into eclipse from there. You'll also need maven if you want to add dependencies or package the project.
 
 To build for distribution outside of Eclipse, use mvn jfx:jar. See JavaFX-Maven-Plugin for more details.
