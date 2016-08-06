@@ -18,12 +18,12 @@ Requirements:
 You can get the latest version of Java [here](https://java.com/en/download/).
 
 #Installing
-SimpleSection is currently in beta. If you are interested in giving it a shot, go to the releases tab up top.
+If you are interested in giving it a shot, go to the releases tab up top.
 
 On Windows: extract the file and double-click the .jar file to launch.
 
 On OSX/Linux:
-Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``.
+Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``. Alternatively, some desktop environments may allow you to simply double-click the .jar to launch.
 
 #Frequently Asked Questions
 Is my password secure when logging in through SimpleSection?
@@ -41,4 +41,4 @@ Can you add X feature or fix Y bug?
 #Contributing
 Thanks for your interest. To get started, you'll need a working Efxclipse install, and import this repository as a project into eclipse from there. You'll also need maven if you want to add dependencies or package the project.
 
-To build for distribution outside of Eclipse, use mvn jfx:jar. See JavaFX-Maven-Plugin for more details.
+To build for distribution outside of Eclipse, use ``mvn jfx:jar``. A new JAR file will be generated from the info in ``pom.xml``. You'll need to bundle the ``res`` folder together with the jar. See JavaFX-Maven-Plugin for more details.
