@@ -21,7 +21,6 @@ public class SettingsTab implements Initializable {
 
 	private ObservableList<String> availableTerms = FXCollections.observableArrayList(new ArrayList<String>());
 
-	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		//Platform.setImplicitExit(false);

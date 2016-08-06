@@ -15,7 +15,7 @@ public class GpaTab {
 
 	public void initialize() {
 		webEngine = webview.getEngine();
-		webEngine.load("https://irweb.ir.vt.edu/webtest/Authenticated/GradeDistribution.aspx");
+		webEngine.load("https://www.ir.vt.edu/work_we_do/course_grade/grades_folder/grades.html");
 	}
 
 	public void onBack() {

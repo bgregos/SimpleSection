@@ -38,20 +38,23 @@ public class SectionGetter {
 		String termval = null;
 		String name=SettingsStore.get().selectedTerm;
 		int year=Integer.parseInt(name.substring(name.length()-4, name.length()));
-		switch(name.substring(0,name.length()-5)){
-			case "Fall": termval="09";
-			break;
-			case "Winter": year--; termval="12";
-			break;
-			case "Spring": termval="01"; //unsure
-			break;
-			case "Summer I": termval="05"; //unsure
-			break;
-			case "Summer II": termval="07";
-			break;
-			default: System.out.println("TERM SET FAILURE");
-			break;
+		String s = name.substring(0,name.length()-5);
+		if(s.equals("Fall")){
+			termval="09";
 		}
+		if(s.equals("Winter")){
+			year--; termval="12";
+		}
+		if(s.equals("Spring")){
+			termval="01"; //unsure
+		}
+		if(s.equals("Summer I")){
+			termval="05"; //unsure
+		}
+		if(s.equals("Summer II")){
+			termval="07";
+		}
+
 		System.out.println(termval +""+ year);
 
 		try{

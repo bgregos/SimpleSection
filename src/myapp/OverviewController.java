@@ -33,7 +33,8 @@ public class OverviewController implements Initializable {
 
 	//Runs at start, window does not appear until this method finishes.
 	public void initialize(URL location, ResourceBundle resources) {
-		File file = new File("res/README.txt");
+		File file = new File("res/"
+				+ "README.txt");
 		try {
 	        Scanner s = new Scanner(file);
 	        while (s.hasNext()) {
