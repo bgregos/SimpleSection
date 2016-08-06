@@ -23,7 +23,7 @@ If you are interested in giving it a shot, go to the releases tab up top to down
 On Windows: extract the file and double-click the .jar file to launch.
 
 On OSX/Linux:
-Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``. Alternatively, some desktop environments may allow you to simply double-click the .jar to launch.
+Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``.
 
 #Frequently Asked Questions
 Is my password secure when logging in through SimpleSection?
