@@ -94,6 +94,10 @@ public class SectionListController implements Initializable{
 					}
 					ObservableList<String> list = FXCollections.observableArrayList(departmentOptions);
 					department.setItems(list);
+
+					//This following part loads the settings into SettingsStore
+					SettingsStore.get().initSettings();
+
 					return null;
 				}
 			};
@@ -144,6 +148,7 @@ public class SectionListController implements Initializable{
 						table.setItems(data);
 						sectionlist.clear();
 					} catch (NumberFormatException e) { // if you don't enter numbers into the course field
+						e.printStackTrace();
 						textarea.setText("Please enter a number into the course field.");
 					}
 					progress.setVisible(false);

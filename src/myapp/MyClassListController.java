@@ -46,7 +46,6 @@ public class MyClassListController implements Initializable{
 
 	public void initialize(URL location, ResourceBundle resources) {
 		setupTable();
-		System.out.println("B");
 
 		//ArrayList<Section> classlist = new ArrayList<Section>();
 		//MyClassListController.get().setAddedSections(FXCollections.observableArrayList(classlist));

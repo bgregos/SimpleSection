@@ -34,6 +34,40 @@ public class SectionGetter {
 		this.driver=d;
 	}
 
+	private void setTerm(){
+		String termval = null;
+		String name=SettingsStore.get().selectedTerm;
+		int year=Integer.parseInt(name.substring(name.length()-4, name.length()));
+		switch(name.substring(0,name.length()-5)){
+			case "Fall": termval="09";
+			break;
+			case "Winter": year--; termval="12";
+			break;
+			case "Spring": termval="01"; //unsure
+			break;
+			case "Summer I": termval="05"; //unsure
+			break;
+			case "Summer II": termval="07";
+			break;
+			default: System.out.println("TERM SET FAILURE");
+			break;
+		}
+		System.out.println(termval +""+ year);
+
+		try{
+			/*Select dropdown = new Select(driver.findElement(By.name("TERMYEAR")));
+			System.out.println(SettingsStore.get().selectedTerm);
+			dropdown.selectByValue(termval+"");
+			*/
+			driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term="+termval+"&year="+year);
+			System.out.println("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term="+termval+"&year="+year);
+			//dropdown.selectByVisibleText(SettingsStore.get().selectedTerm);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("3");
+	}
+
 	/**
 	 * Gets an ArrayList of sections from the VT servers.
 	 * This version requires passing in a WebDriver instance (from the Selenium library), so as to cut down on load times associated with making a new WebDriver.
@@ -47,9 +81,9 @@ public class SectionGetter {
 	 * @return ArrayList<Section>
 	 */
 	public ArrayList<Section> getSections(String department, int coursenumber, boolean loggedin){
-		driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016"); //go to course list site
-		//TODO: Remove hardcoded term and year
-
+		System.out.println("Getting Sections");
+		driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest"); //go to course list site
+		setTerm();
 		Select dropdown = new Select(driver.findElement(By.name("subj_code")));
 		try{ //handles department selection failure
 			dropdown.selectByValue(department);
@@ -88,8 +122,8 @@ public class SectionGetter {
 	public Section getSection(String crn, boolean loggedin){
 		//WebDriver driver1=new JBrowserDriver(Settings.builder().headless(false).cache(true).build());
 		//driver=driver1;
-		driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest?term=09&year=2016"); //go to course list site
-		//TODO: Remove hardcoded term and year
+		driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest"); //go to course list site
+		setTerm();
 		element = driver.findElement(By.name("crn"));
 		element.sendKeys(crn);
 		element.submit();
@@ -99,6 +133,29 @@ public class SectionGetter {
 		}catch(Exception e){
 			return null;
 		}
+	}
+
+	public ArrayList<String> getTerms(){
+		System.out.println("Getting terms from HokieSPA");
+		ArrayList<String> out = new ArrayList<String>();
+		driver.get("https://banweb.banner.vt.edu/ssb/prod/HZSKVTSC.P_DispRequest");
+		System.out.println("1");
+		int i=1;
+		element = driver.findElement(By.xpath("//*[@id=\"ttform\"]/table/tbody/tr[2]/td[2]/select/option["+i+"]"));
+		System.out.println("2");
+		while(element!=null){
+			try{
+				element = driver.findElement(By.xpath("//*[@id=\"ttform\"]/table/tbody/tr[2]/td[2]/select/option["+i+"]"));
+				i++;
+				out.add(element.getText());
+				System.out.println("New Term: "+element.getText());
+			}catch(NoSuchElementException e){
+				element=null;
+			}
+
+		}
+		out.remove("Select Term");
+		return out;
 	}
 
 	private void parseSections(boolean loggedin){

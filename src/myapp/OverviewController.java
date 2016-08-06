@@ -24,6 +24,7 @@ public class OverviewController implements Initializable {
 
 	// Schedule Tab
 	@FXML private MyClassListController myClassListController;
+	@FXML private SettingsTab settingsController;
 	@FXML private ScheduleController scheduleTabController;
 	@FXML private TextArea aboutText;
 
@@ -32,7 +33,7 @@ public class OverviewController implements Initializable {
 
 	//Runs at start, window does not appear until this method finishes.
 	public void initialize(URL location, ResourceBundle resources) {
-		File file = new File("README.txt");
+		File file = new File("res/README.txt");
 		try {
 	        Scanner s = new Scanner(file);
 	        while (s.hasNext()) {
@@ -54,5 +55,10 @@ public class OverviewController implements Initializable {
 		System.out.println("Switched Tabs");
 		scheduleTabController.refresh();
 
+	}
+
+	public void onClickSettingsTab(){
+		System.out.println("Updating settings boxes");
+		settingsController.updateTerm();
 	}
 }

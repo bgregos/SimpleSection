@@ -18,8 +18,7 @@ public class MyClasses {
 
 	//Constructor and Singleton stuff
 	private static MyClasses instance = new MyClasses();
-	public MyClasses(){
-
+	private MyClasses(){
 	}
 	public static MyClasses get(){
 		return instance;
@@ -29,15 +28,20 @@ public class MyClasses {
 	public ObservableList<Section> sections=FXCollections.observableArrayList(new ArrayList<Section>());
 	public boolean loggedIn=false;
 	public WebDriver driver;
+	public String termstring="";
 
 
 	public void checkConflicts(){ //TODO: Add checking for additional times
+
 		if(sections.size()==0){
 			return;
 		}
 
 		//clear all conflicts
 		for(Section s:sections){
+			if(s==null){
+				return;
+			}
 			s.setConflicts("");
 		}
 
