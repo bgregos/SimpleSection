@@ -18,7 +18,7 @@ Requirements:
 You can get the latest version of Java [here](https://java.com/en/download/).
 
 #Installing
-If you are interested in giving it a shot, go to the releases tab up top.
+If you are interested in giving it a shot, go to the releases tab up top to download.
 
 On Windows: extract the file and double-click the .jar file to launch.
 
