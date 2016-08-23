@@ -17,13 +17,13 @@ Requirements:
 
 You can get the latest version of Java [here](https://java.com/en/download/).
 
-#Installing
-If you are interested in giving it a shot, go to the releases tab up top to download.
+#Downloading
+If you are interested in giving it a shot, go to the [releases tab](https://github.com/bgregos/SimpleSection/releases) up top to download.
 
-On Windows: extract the file and double-click the .jar file to launch.
+On Windows: download the zip with the -win ending, extract the file and double-click the .exe file to launch.
 
 On OSX/Linux:
-Extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``.
+Download the non-win version, extract, open a terminal, navigate to the folder with ``cd``, and run ``java -jar SimpleSection.jar``. Launching with a .desktop file or shell script should work as long as the above command is run, but neither are tested or supported at this time. NOTE FOR GNOME USERS: Double-click to run doesn't seem to launch the program correctly at this time.
 
 #Frequently Asked Questions
 Is my password secure when logging in through SimpleSection?
