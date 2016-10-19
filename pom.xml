@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>SimpleSection</groupId>
 	<artifactId>SimpleSection</artifactId>
-	<version>1.0.1</version>
+	<version>1.1</version>
 	<dependencies>
 		<dependency>
         <groupId>org.seleniumhq.selenium</groupId>

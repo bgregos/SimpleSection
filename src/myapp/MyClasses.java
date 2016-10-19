@@ -31,7 +31,7 @@ public class MyClasses {
 	public String termstring="";
 
 
-	public void checkConflicts(){ //TODO: Add checking for additional times
+	public void checkConflicts(){
 
 		if(sections.size()==0){
 			return;
@@ -61,8 +61,8 @@ public class MyClasses {
 				if(i!=j && check(i,j)){ //check if conflict occurred
 					if(!(iCurrentConf.contains(jcrn) && jCurrentConf.contains(icrn))){ //make sure conflict is not already logged between the two
 						sections.get(i).setConflicts(iCurrentConf+jcrn+" ");
-						sections.get(j).setConflicts(jCurrentConf+icrn+" ");
 					}
+						sections.get(j).setConflicts(jCurrentConf+icrn+" ");
 				}
 
 			}
@@ -72,9 +72,22 @@ public class MyClasses {
 
 	/**
 	 * Checks for conlicts
+	 *
+	 * @return true if conflicting
 	 */
 	private boolean check(int i, int j){
 		int buffer=7; //Half of time between classes. VT is 15 min. Round down.
+
+		if(sections.get(i).getType().contains("ONLINE")||sections.get(j).getType().contains("ONLINE"))
+		{
+			return false;
+		}
+
+		if(sections.get(i).getTitle().equals(sections.get(j).getTitle())){
+			if(sections.get(i).getType().equals(sections.get(j).getType())){
+				return true;
+			}
+		}
 
 		int istart=parseTime(sections.get(i).getBegin())-buffer;
 		int iend=parseTime(sections.get(i).getEnd())+buffer;
@@ -183,6 +196,9 @@ public class MyClasses {
 	 * @return int minutes since midnight
 	 */
 	public int parseTime(String time){
+		if(time.contains("-")||time.contains("ARR")||time.contains("TBA")){
+			return 0;
+		}
 		int out=0;
 		int idx=time.indexOf(":");
 		if(time.contains("PM")&&(!(time.contains("12:")))){
