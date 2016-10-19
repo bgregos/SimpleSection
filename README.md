@@ -41,4 +41,6 @@ Can you add X feature or fix Y bug?
 #Contributing
 Thanks for your interest. To get started, you'll need a working Efxclipse install, and import this repository as a project into eclipse from there. You'll also need maven if you want to add dependencies or package the project.
 
-To build for distribution outside of Eclipse, use ``mvn jfx:jar``. A new JAR file will be generated from the info in ``pom.xml``, and it will be placed in the ``target/jfx/app/`` folder. You'll need to bundle the ``res`` folder together with the jar. See JavaFX-Maven-Plugin for more details.
+To build for distribution outside of Eclipse, use ``mvn jfx:jar``. A new JAR file will be generated from the info in ``pom.xml``, and it will be placed in the ``target/jfx/app/`` folder, along with a ``lib`` folder. . You'll need to bundle the ``res`` folder (in the project top-level directory) together with the generated jar and ``lib`` folder. See JavaFX-Maven-Plugin for more details.
+
+You can also package the program for Windows using launch4j.
